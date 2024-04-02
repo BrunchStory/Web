@@ -51,7 +51,7 @@ const Keyword = () => {
         {" "}
         <KeywordContainer>
           {fakeData.list.map((data, i) => (
-            <KeywordItem>
+            <KeywordItem key={i}>
               <StyledTxt>{data[i].description}</StyledTxt>
               {data[i].isNew === "true" && <Icon></Icon>}
             </KeywordItem>
