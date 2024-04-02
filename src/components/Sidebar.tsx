@@ -1,4 +1,5 @@
 import React, { ReactNode, useEffect, useRef } from "react";
+import styled from "styled-components";
 
 interface Props {
   isOpen: boolean;
@@ -11,19 +12,6 @@ interface Props {
 
 const SideBar = ({ isOpen, setIsOpen, width, children }: Props) => {
   const outside = useRef<any>();
-  const style: any = {
-    zIndex: 5,
-    padding: "12px",
-    backgroundColor: "blue",
-    height: "100%",
-    border: "1px solid #000",
-    width: typeof width === "string" ? width + "%" : `${width}px`,
-    maxWidth: "300px",
-    left: isOpen ? 0 : "-55%",
-    top: 0,
-    position: "fixed",
-    transition: isOpen ? "0.8s ease" : "0.8s ease-in",
-  };
 
   useEffect(() => {
     const onClickOutside = (e: any) => {
@@ -38,13 +26,32 @@ const SideBar = ({ isOpen, setIsOpen, width, children }: Props) => {
   }, [setIsOpen]);
 
   return (
-    <div style={style} ref={outside}>
+    <SdieBarContainer $width={width} $isOpen={isOpen.toString()} ref={outside}>
       {children}
-    </div>
+    </SdieBarContainer>
   );
 };
 
 export default SideBar;
+
+const SdieBarContainer = styled.div<{
+  $width: number | string;
+  $isOpen: string;
+}>`
+  z-index: 5;
+  padding: 12px;
+  background-color: blue;
+  height: 100%;
+  border: 1px solid #000;
+  width: ${({ $width }) =>
+    typeof $width === "string" ? $width + "%" : `${$width}px`};
+  max-width: 300px;
+  left: ${(props) => (props.$isOpen === "true" ? 0 : "-55%")};
+  top: 0;
+  position: fixed;
+  transition: ${(props) =>
+    props.$isOpen === "true" ? "0.8s ease" : "0.8s ease-in"};
+`;
 
 SideBar.defaultProps = {
   width: 280,
