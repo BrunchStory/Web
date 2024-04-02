@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { ListProps } from "./WeekWriteList";
+import { Img } from "../styles/global";
 
 interface Props {
   filterData: ListProps[];
@@ -26,17 +27,7 @@ const WriteItems = ({ filterData }: Props) => {
               <strong>{text}</strong>
               <span>{writer}</span>
             </WriteItem>
-            {img && (
-              <img
-                style={{
-                  width: "80px",
-                  height: "80px",
-                  objectFit: "fill",
-                }}
-                src={img}
-                alt="사진"
-              />
-            )}
+            {img && <Img width={80} height={80} src={img} alt="사진" />}
           </WriteItemContainer>
         );
       })}

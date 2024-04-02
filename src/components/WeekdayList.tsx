@@ -37,18 +37,7 @@ const WeekdayList = () => {
   return (
     <WeekdayListContainer>
       <Title>요일별 연재</Title>
-      <Desc
-        style={{
-          width: "100%",
-          textAlign: "center",
-          fontSize: "12px",
-          color: "#959595",
-          margin: "10px 0 0 0",
-          lineHeight: "20px",
-        }}
-      >
-        브런치북 오리저널 연재를 만나 보세요
-      </Desc>
+      <Desc>브런치북 오리저널 연재를 만나 보세요</Desc>
       <SelectWeekContainer>
         <SelectWeek>
           {week.map((v, idx) => (
