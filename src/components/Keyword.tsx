@@ -76,21 +76,37 @@ const Icon = styled.span`
 `;
 // TODO
 const Title = styled.p`
-    font-size: 14.04px;
-    font-weight: 700;
-    line-height: 21.06px
+  background: url("https://t1.daumcdn.net/brunch9/static/images/pc/txt_brunch_v6_221227.png")
+    no-repeat;
+  background-position: -101px -300px;
 
-    color: #333;
-    
-    margin: 0;
+  width: 266px;
+  height: 13px;
 
-    text-align: center;
+  font-size: 14.04px;
+  font-weight: 700;
+  line-height: 21.06px;
+  text-indent: -9999px;
+
+  color: #333;
+
+  margin: 152px auto 0;
+
+  text-align: center;
 `;
 
 // TODO
 const SubTitle = styled.p`
+  background: url("https://t1.daumcdn.net/brunch9/static/images/pc/txt_brunch_v6_221227.png")
+    no-repeat;
+  background-position: -175px 0;
+
+  width: 149px;
+  height: 11px;
+
   font-size: 12px;
   line-height: 18px;
+  text-indent: -9999px;
 
   color: #333;
 
