@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
@@ -7,6 +7,9 @@ interface IconProps {
   $posY: string;
 }
 
+interface ButtonProps {
+  $moreInfo: boolean;
+}
 interface ListItem {
   title: string;
   link: string;
@@ -38,8 +41,12 @@ const listSns: ListItem[] = [
 ];
 
 const Footer = () => {
+  const [moreInfo, setMoreInfo] = useState(false);
+  const moreInfoClick = () => {
+    setMoreInfo((prev) => !prev);
+  };
   return (
-    <footer style={{ backgroundColor: "#101010", color: "#fff" }}>
+    <StyledFooter>
       <InnerFoot>
         <WrapInfo>
           <div style={{ marginRight: "auto" }}>
@@ -76,9 +83,33 @@ const Footer = () => {
         </WrapInfo>
 
         <WrapCorp>
-          <Small>© Kakao Corp.</Small>
+          <div style={{ fontSize: "14px", width: "800px" }}>
+            <LinkCorp onClick={moreInfoClick}>
+              <Small>© Kakao Corp.</Small>
+              <MoreButton $moreInfo={moreInfo}></MoreButton>
+            </LinkCorp>
 
-          <div style={{ display: "flex", gap: "24px", marginLeft: "auto" }}>
+            {moreInfo && (
+              <CorpInfoList>
+                <li>대표이사 : 정신아 | &nbsp;</li>
+                <li>사업자등록번호 : 120-81-47521 | &nbsp;</li>
+                <li>
+                  통신판매업신고번호 : &nbsp;
+                  <Link to="/" style={{ color: "#595959" }}>
+                    제2015-제주아라-0032호
+                  </Link>
+                </li>
+                <li>
+                  주소 : 제주특별자치도 제주시 첨단로 242(영평동) | &nbsp;
+                </li>
+                <li>호스팅서비스사업자 : (주)카카오 | &nbsp;</li>
+                <li>고객센터 : 1577-3754 </li>
+                <li>이메일 : help.notice@kakaocorp.com</li>
+              </CorpInfoList>
+            )}
+          </div>
+
+          <LinkIcons>
             <LinkIcon
               $posX="-260px"
               $posY="-100px"
@@ -93,14 +124,45 @@ const Footer = () => {
             >
               아이폰 앱 다운로드
             </LinkIcon>
-          </div>
+          </LinkIcons>
         </WrapCorp>
       </InnerFoot>
-    </footer>
+    </StyledFooter>
   );
 };
 
 export default Footer;
+
+const LinkCorp = styled.div`
+  display: flex;
+  align-items: center;
+  width: fit-content;
+
+  overflow: hidden;
+`;
+
+const MoreButton = styled.button<ButtonProps>`
+  background: url("https://t1.daumcdn.net/brunch9/static/imgs/icons/pc_ico_brunch_pc_v231211.png")
+    no-repeat;
+  background-position: -128px 0;
+  transform: ${(props) => !props.$moreInfo && "rotate(180deg)"};
+
+  width: 22px;
+  height: 22px;
+
+  border: none;
+`;
+const LinkIcons = styled.div`
+  display: flex;
+  gap: 24px;
+  margin-left: auto;
+`;
+const StyledFooter = styled.footer`
+  background-color: #101010;
+  color: #fff;
+
+  height: 417px;
+`;
 
 const InnerFoot = styled.div`
   width: 960px;
@@ -187,7 +249,21 @@ const SloganWriter = styled.p`
 
 const WrapCorp = styled.div`
   display: flex;
-  paddingtop: 22px;
+  padding-top: 22px;
+`;
+
+const CorpInfoList = styled.ul`
+  font-size: smaller;
+  color: #595959;
+  line-height: 20px;
+
+  list-style: none;
+
+  margin: 10px 0 0;
+  padding: 0;
+
+  display: flex;
+  flex-wrap: wrap;
 `;
 
 const Small = styled.small`
