@@ -42,7 +42,7 @@ const EditorPick = () => {
   };
 
   return (
-    <div style={{ marginTop: "22px" }}>
+    <div style={{ marginTop: "22px", overflow: "hidden" }}>
       <WrapSlide
         style={{
           transform: `translateX(${slidePosition}px)`,
