@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { ListProps } from "./WeekWriteList";
-import { Img } from "../styles/global";
+import { Img, fadeIn } from "../styles/global";
 
 interface Props {
   filterData: ListProps[];
@@ -13,16 +13,7 @@ const WriteItems = ({ filterData }: Props) => {
       {filterData.map(({ title, text, writer, img }, idx) => {
         return (
           <WriteItemContainer key={idx}>
-            <WriteItem
-              style={{
-                width: "100%",
-                height: "100%",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "flex-start",
-              }}
-            >
+            <WriteItem>
               <span>{title}</span>
               <strong>{text}</strong>
               <span>{writer}</span>
@@ -45,8 +36,8 @@ const WriteItemContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 19px;
-  box-sizing: border-box;
-  cursor: pointer;
+  animation: ${fadeIn} 1s;
+  position: relative;
 `;
 
 const WriteItem = styled.div`
