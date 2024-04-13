@@ -1,22 +1,46 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import { faBars, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import SideBar from "./Sidebar";
+import Modal from "./Modal";
+import SlideMenu from "./SlideMenu";
 import { Img } from "../styles/global";
 
 interface Props {
-  bannerHeight: number;
+  homeProps: PropsType;
 }
 
-const Header = ({ bannerHeight }: Props) => {
+interface PropsType {
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsSearch: React.Dispatch<React.SetStateAction<boolean>>;
+  openModal: boolean;
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+  isModalOpen: () => void;
+  wordList: {
+    id: number;
+    text: string;
+    selected: boolean;
+  }[];
+  setWordList: React.Dispatch<
+    React.SetStateAction<{ id: number; text: string; selected: boolean }[]>
+  >;
+}
+
+const Header = ({ homeProps }: Props) => {
+  const {
+    isOpen,
+    setIsOpen,
+    setIsSearch,
+    openModal,
+    setOpenModal,
+    isModalOpen,
+    wordList,
+    setWordList,
+  } = homeProps;
   const [scrollY, setScrollY] = useState<number>(0);
-  const [closed, setClosed] = useState<boolean>(false);
+  const [closed, setClosed] = useState<boolean>(true);
+  const [countScrollY, setCountScrollY] = useState<number[]>([]);
   const [show, setShow] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-  const marginTop = offsetValue(bannerHeight);
 
   useEffect(() => {
     const updateScrollY = () => {
@@ -38,13 +62,32 @@ const Header = ({ bannerHeight }: Props) => {
     return () => window.removeEventListener("scroll", updateScrollY);
   }, [scrollY]);
 
+  useEffect(() => {
+    if (scrollY === 0) {
+      countScrollY.push(300);
+    }
+
+    setCountScrollY([...countScrollY]);
+
+    if (countScrollY.length >= 3) {
+      setClosed(false);
+      setCountScrollY([]);
+    }
+  }, [scrollY]);
+
+  const headerProps = {
+    show,
+    scrollY,
+    setIsOpen,
+    setClosed,
+    isModalOpen,
+    setIsSearch,
+    search: false,
+  };
+
   return (
     <HeaderContainer>
-      <BannerContainer
-        $closed={closed.toString()}
-        $bannerheight={bannerHeight}
-        $marginTop={marginTop}
-      >
+      <BannerContainer $closed={closed.toString()} $marginTop={340}>
         <Img
           src="https://cdn.pixabay.com/photo/2016/12/13/05/15/puppy-1903313_1280.jpg"
           alt="사진"
@@ -61,7 +104,7 @@ const Header = ({ bannerHeight }: Props) => {
             position: "absolute",
             bottom: 15,
             left: "35%",
-            color: "white",
+            color: "black",
             opacity: closed ? 1 : 0,
             transition: "opacity .3s ease-in",
             cursor: "pointer",
@@ -70,29 +113,17 @@ const Header = ({ bannerHeight }: Props) => {
           브론치 작가 모두에게 수익의 기회가 열립니다. 응원하기 정식 오픈
         </div>
       </BannerContainer>
-      <SideBar isOpen={isOpen} setIsOpen={setIsOpen} />
-      <NavMenu $show={show.toString()} $scrolly={scrollY}>
-        <MenuContainer>
-          <FontAwesomeIcon
-            size={"2x"}
-            icon={faBars as IconProp}
-            style={{ marginRight: "14px" }}
-            onClick={() => setIsOpen(true)}
-          />
+      <SlideMenu headerprops={headerProps} />
 
-          <Logo to={"/"}>
-            brunch <span>story</span>
-          </Logo>
-        </MenuContainer>
-        <MenuContainer>
-          <StartBtn>시작하기</StartBtn>
-          <FontAwesomeIcon
-            size={"1x"}
-            icon={faMagnifyingGlass as IconProp}
-            style={{ marginLeft: "14px" }}
-          />
-        </MenuContainer>
-      </NavMenu>
+      <SideBar
+        isOpen={isOpen}
+        wordList={wordList}
+        setWordList={setWordList}
+        width={260}
+        setIsOpen={setIsOpen}
+        isModalOpen={isModalOpen}
+      />
+      {openModal && <Modal setOpenModal={setOpenModal} />}
     </HeaderContainer>
   );
 };
@@ -100,16 +131,16 @@ const Header = ({ bannerHeight }: Props) => {
 export default Header;
 
 const HeaderContainer = styled.div`
-  height: 10000px;
+  height: auto;
+  width: 100%;
 `;
 
 const BannerContainer = styled.div<{
   $closed: string;
-  $bannerheight: number;
   $marginTop: number;
 }>`
   width: 100%;
-  height: ${(props) => `${props.$bannerheight}px`};
+  height: 400px;
   overflow: hidden;
   position: relative;
   margin-top: ${(props) =>
@@ -128,60 +159,3 @@ const CancelBtn = styled.button`
   font-size: 3.65rem;
   font-weight: 10;
 `;
-
-const NavMenu = styled.div<{ $show: string; $scrolly: number }>`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: ${(props) => (props.$show === "true" ? "fixed" : "static")};
-  width: 1425px;
-  height: 60px;
-  z-index: 10;
-  background: hsla(0, 0%, 100%, 0.9);
-  padding: 0 30px;
-  box-sizing: border-box;
-  opacity: ${(props) =>
-    props.$show === "true" ? 1 : props.$scrolly < 424 ? 1 : 0};
-  top: 0;
-  transition: opacity 0.3s ease-in 0s;
-`;
-
-const MenuContainer = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const Logo = styled(Link)`
-  text-decoration: none;
-  color: black;
-  font-size: 28px;
-  color: #333;
-
-  span {
-    text-decoration: overline;
-  }
-`;
-
-const StartBtn = styled.div`
-  border: 1px solid #959595;
-  border-radius: 16px;
-  color: #666;
-  font-size: 12px;
-  line-height: 28px;
-  text-align: center;
-  width: 64px;
-  cursor: pointer;
-`;
-
-Header.defaultProps = {
-  bannerHeight: 400,
-};
-
-const offsetValue = (number: number) => {
-  let a = 1;
-  while (number - a !== 60) {
-    a++;
-  }
-
-  return a;
-};
