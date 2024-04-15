@@ -1,121 +1,124 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
+import { LeftButton, RightButton } from "./ScrollButton";
+
 interface PageNumProps {
   $posX: string;
   $posY: string;
   $height: string;
 }
 
-interface ButtonClickState {
-  [key: number]: boolean;
-}
 const EditorPick = () => {
-  const [slidePosition, setSlidPosition] = useState(0);
-  const [isButtonClicked, setButtonClick] = useState<ButtonClickState>({
-    1: false,
-    2: false,
-    3: false,
-    4: false,
-    5: false,
-    6: false,
-    7: false,
-    8: false,
-    9: false,
-    10: false,
-  });
-  const handleButtonClick = (x: number, pageNum: number) => {
+  const [slidePosition, setSlidPosition] = useState(0); // x좌표로 얼마만큼 이동했는지
+  const [activePage, setActivePage] = useState(1); // 현재 활성화된 페이지번호(1~10)
+
+  const handleNumberButtonClick = (x: number, pageNum: number) => {
     setSlidPosition(x);
-    setButtonClick({
-      1: false,
-      2: false,
-      3: false,
-      4: false,
-      5: false,
-      6: false,
-      7: false,
-      8: false,
-      9: false,
-      10: false,
-      [pageNum]: true,
-    });
+    setActivePage(pageNum);
+  };
+
+  const handleScrollButtonClick = (isLeftButton: boolean) => {
+    console.log(activePage);
+
+    if (isLeftButton) {
+      setSlidPosition((prev) => (prev += activePage === 2 ? 480 : +960));
+      setActivePage((prev) => prev - 1);
+    } else {
+      setSlidPosition((prev) => (prev -= activePage === 1 ? 480 : 960));
+      setActivePage((prev) => prev + 1);
+    }
   };
 
   return (
     <div style={{ marginTop: "22px", overflow: "hidden" }}>
-      <WrapSlide
-        style={{
-          transform: `translateX(${slidePosition}px)`,
-          transition: "-webkit-transform 0.3s ease 0s ",
-        }}
-      >
-        <li>
-          <div
-            style={{ width: "480px", height: "520px", background: "#ff9be9" }}
-          ></div>
-        </li>
-        <li>
-          <div
-            style={{ width: "960px", height: "520px", background: "#ffc2a4" }}
-          ></div>
-        </li>
-        <li>
-          <div
-            style={{ width: "960px", height: "520px", background: "#0c3c8e" }}
-          ></div>
-        </li>
-        <li>
-          <div
-            style={{ width: "960px", height: "520px", background: "#0b8c87" }}
-          ></div>
-        </li>
-        <li>
-          <div
-            style={{ width: "960px", height: "520px", background: "#06df8e" }}
-          ></div>
-        </li>
-        <li>
-          <div
-            style={{ width: "960px", height: "520px", background: "#687200" }}
-          ></div>
-        </li>
-        <li>
-          <div
-            style={{ width: "960px", height: "520px", background: "#ffb5ae" }}
-          ></div>
-        </li>
-        <li>
-          <div
-            style={{ width: "960px", height: "520px", background: "#fffbb4" }}
-          ></div>
-        </li>
-        <li>
-          <div
-            style={{ width: "960px", height: "520px", background: "#0fffc1" }}
-          ></div>
-        </li>
-        <li>
-          <div
-            style={{ width: "960px", height: "520px", background: "#f9fd51" }}
-          ></div>
-        </li>
-      </WrapSlide>
+      <div style={{ position: "relative" }}>
+        {/* 스크롤 버튼이 2 <= activePage <= 9 일 때만 화면에 표시 */}
+        {activePage >= 2 && (
+          <div onClick={() => handleScrollButtonClick(true)}>
+            <LeftButton $left="30px" $top="50%" />
+          </div>
+        )}
+        {activePage <= 9 && (
+          <div onClick={(e) => handleScrollButtonClick(false)}>
+            <RightButton $right="30px" $top="50%" />
+          </div>
+        )}
+
+        <WrapSlide
+          style={{
+            transform: `translateX(${slidePosition}px)`,
+            transition: "-webkit-transform 0.3s ease 0s ",
+          }}
+        >
+          <li>
+            <div
+              style={{ width: "480px", height: "520px", background: "#ff9be9" }}
+            ></div>
+          </li>
+          <li>
+            <div
+              style={{ width: "960px", height: "520px", background: "#ffc2a4" }}
+            ></div>
+          </li>
+          <li>
+            <div
+              style={{ width: "960px", height: "520px", background: "#0c3c8e" }}
+            ></div>
+          </li>
+          <li>
+            <div
+              style={{ width: "960px", height: "520px", background: "#0b8c87" }}
+            ></div>
+          </li>
+          <li>
+            <div
+              style={{ width: "960px", height: "520px", background: "#06df8e" }}
+            ></div>
+          </li>
+          <li>
+            <div
+              style={{ width: "960px", height: "520px", background: "#687200" }}
+            ></div>
+          </li>
+          <li>
+            <div
+              style={{ width: "960px", height: "520px", background: "#ffb5ae" }}
+            ></div>
+          </li>
+          <li>
+            <div
+              style={{ width: "960px", height: "520px", background: "#fffbb4" }}
+            ></div>
+          </li>
+          <li>
+            <div
+              style={{ width: "960px", height: "520px", background: "#0fffc1" }}
+            ></div>
+          </li>
+          <li>
+            <div
+              style={{ width: "960px", height: "520px", background: "#f9fd51" }}
+            ></div>
+          </li>
+        </WrapSlide>
+      </div>
 
       <div style={{ margin: "22px auto 0px", width: "fit-content" }}>
-        <PageButton onClick={() => handleButtonClick(0, 1)}>
+        <PageButton onClick={() => handleNumberButtonClick(0, 1)}>
           <PageNum
             $posX="0"
-            $posY={isButtonClicked[1] ? "-10" : "0"}
-            $height={isButtonClicked[1] ? "12" : "9"}
+            $posY={activePage === 1 ? "-10" : "0"}
+            $height={activePage === 1 ? "12" : "9"}
           >
             1
           </PageNum>
         </PageButton>
-        <PageButton onClick={() => handleButtonClick(-480, 2)}>
+        <PageButton onClick={() => handleNumberButtonClick(-480, 2)}>
           <PageNum
             $posX="-20"
-            $posY={isButtonClicked[2] ? "-10" : "0"}
-            $height={isButtonClicked[2] ? "12" : "9"}
+            $posY={activePage === 2 ? "-10" : "0"}
+            $height={activePage === 2 ? "12" : "9"}
           >
             2
           </PageNum>
@@ -123,68 +126,19 @@ const EditorPick = () => {
         {[3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
           <PageButton
             key={num}
-            onClick={() => handleButtonClick(-480 + -960 * (num - 2), num)}
+            onClick={() =>
+              handleNumberButtonClick(-480 + -960 * (num - 2), num)
+            }
           >
             <PageNum
               $posX={`${-20 * (num - 1)}`}
-              $posY={isButtonClicked[num] ? "-10" : "0"}
-              $height={isButtonClicked[num] ? "12" : "9"}
+              $posY={activePage === num ? "-10" : "0"}
+              $height={activePage === num ? "12" : "9"}
             >
               {num}
             </PageNum>
           </PageButton>
         ))}
-
-        {/* <PageButton onClick={() => handleButtonClick(0)}>
-          <PageNum $posX="0" $posY="0">
-            1
-          </PageNum>
-        </PageButton>
-        <PageButton onClick={() => handleButtonClick(-480)}>
-          <PageNum $posX="-20" $posY="0">
-            2
-          </PageNum>
-        </PageButton>
-        <PageButton onClick={() => handleButtonClick(-1440)}>
-          <PageNum $posX="-40" $posY="0">
-            3
-          </PageNum>
-        </PageButton>
-        <PageButton onClick={() => handleButtonClick(-2400)}>
-          <PageNum $posX="-60" $posY="0">
-            4
-          </PageNum>
-        </PageButton>
-        <PageButton onClick={() => handleButtonClick(-3360)}>
-          <PageNum $posX="-80" $posY="0">
-            5
-          </PageNum>
-        </PageButton>
-        <PageButton onClick={() => handleButtonClick(-4320)}>
-          <PageNum $posX="-100" $posY="0">
-            6
-          </PageNum>
-        </PageButton>
-        <PageButton onClick={() => handleButtonClick(-5280)}>
-          <PageNum $posX="-120" $posY="0">
-            7
-          </PageNum>
-        </PageButton>
-        <PageButton onClick={() => handleButtonClick(-6240)}>
-          <PageNum $posX="-140" $posY="0">
-            8
-          </PageNum>
-        </PageButton>
-        <PageButton onClick={() => handleButtonClick(-7200)}>
-          <PageNum $posX="-160" $posY="0">
-            9
-          </PageNum>
-        </PageButton>
-        <PageButton onClick={() => handleButtonClick(-8160)}>
-          <PageNum $posX="-180" $posY="0">
-            10
-          </PageNum>
-        </PageButton> */}
       </div>
     </div>
   );
