@@ -7,228 +7,207 @@ const category = [
   { id: 200, name: "사랑" },
   { id: 300, name: "IT" },
 ];
+
 // 가짜 임시 데이터
 const fakeDataList: FakeDataList = {
   category: category,
-  100: {
-    name: "에세이",
-    list: [
-      {
-        0: {
-          profileImage:
+  results: [
+    {
+      category_id: 100,
+      list: [
+        {
+          profile_image:
             "https://img1.daumcdn.net/thumb/C120x120/?fname=http://t1.daumcdn.net/brunch/service/user/3UIz/image/Nz9S4pUbWCi2P9xwtZ297jM2Lh0.jpg",
-          profileName: "일과삶",
-          profileJob: "출간작가",
-          description:
+          profile_name: "일과삶",
+          profile_job: "출간작가",
+          profile_desc:
             "일하고 배우고 느낀 점을 나누며 삶의 성장으로 안내하는 글을 씁니다. 《나를 찾아가는 글쓰기》, 《아이 키우며 일하는 엄마로 산다는 건》저자",
         },
-      },
-      {
-        1: {
-          profileImage:
+        {
+          profile_image:
             "https://img1.daumcdn.net/thumb/C120x120/?fname=http://t1.daumcdn.net/brunch/service/user/S55/image/zXgKobo-G_azDfKQvRHT7WtzAsY.png",
-          profileName: "kakaoprivacy",
-          profileJob: "카카오",
-          description:
+          profile_name: "kakaoprivacy",
+          profile_job: "카카오",
+          profile_desc:
             "카카오의 프라이버시 및 개인정보 관련 정책과 활동을 소개하고, 개인정보에 대해 알고 싶은 모든 분들을 위한 브런치입니다.",
         },
-      },
-      {
-        2: {
-          profileImage:
+        {
+          profile_image:
             "https://img1.daumcdn.net/thumb/C120x120.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/c8u/image/Ezy7ajeg5hO9Reuq4gHiLO9TLmY",
-          profileName: "뮤즈노트",
-          profileJob: "방송사 출간작가",
-          description:
+          profile_name: "뮤즈노트",
+          profile_job: "방송사 출간작가",
+          profile_desc:
             "문화콘텐츠학 박사, 방송사에서 문화사업, 편성PD, 뉴미디어 전략, 콘텐츠 마케팅 등 다양한 업무를 해왔다.",
         },
-      },
-      {
-        3: {
-          profileImage:
+
+        {
+          profile_image:
             "https://img1.daumcdn.net/thumb/C120x120/?fname=http://t1.daumcdn.net/brunch/service/user/1cee/image/_1-cVZpBJAMpkfycONWjhiHc15g.jpg",
-          profileName: "박찬학",
-          profileJob: "더테이블세터 강연자",
-          description:
+          profile_name: "박찬학",
+          profile_job: "더테이블세터 강연자",
+          profile_desc:
             "The table setter 대표_소셜임팩트 공공소통디자인_아이스크림 원격 연수원 교사직무연수 <고교학점제>강사_네이버 프리미엄 콘텐츠 취미/학습/자기개발 분야 TOP1",
         },
-      },
-      {
-        4: {
-          profileImage:
+
+        {
+          profile_image:
             "https://img1.daumcdn.net/thumb/C120x120/?fname=http://t1.daumcdn.net/brunch/service/user/8kr3/image/OPsIYPqIEgFmUG83meMfqhsAFnY.jpg",
-          profileName: "또또비됴",
-          profileJob: "에디터",
-          description:
+          profile_name: "또또비됴",
+          profile_job: "에디터",
+          profile_desc:
             "영화를 통해 사회를 보려 노력하는 또또비됴 브런치 입니다. 극장, VHS, DVD, VOD, OTT 가리지 않고 모든 영화를 좋아합니다.",
         },
-      },
 
-      {
-        5: {
-          profileImage:
+        {
+          profile_image:
             "https://img1.daumcdn.net/thumb/C120x120.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/cZdn/image/enLi4EqF5qFUJNi8VJmX8CtAdx0",
-          profileName: "allen rabbit",
-          profileJob: "에세이스트",
-          description:
+          profile_name: "allen rabbit",
+          profile_job: "에세이스트",
+          profile_desc:
             "<공공의적><이중간첩><가족시네마>의 시나리오 작가. <순애보>의 편집감독, <망명>의 영화감독. <빙상의신> 드라마 작가. <천공의 섬 아저씨>의 일러스트 수필작가.",
         },
-      },
-    ],
-  },
-  200: {
-    name: "사랑",
-    list: [
-      {
-        0: {
-          profileImage:
+      ],
+    },
+
+    {
+      category_id: 200,
+      list: [
+        {
+          profile_image:
             "https://img1.daumcdn.net/thumb/C120x120/?fname=http://t1.daumcdn.net/brunch/service/user/3UIz/image/Nz9S4pUbWCi2P9xwtZ297jM2Lh0.jpg",
-          profileName: "효라빠",
-          profileJob: "교도관 공무원",
-          description:
+          profile_name: "효라빠",
+          profile_job: "교도관 공무원",
+          profile_desc:
             "18년차 교도관 입니다. 운동(유도,주짓수 등)과 책읽기, 글쓰기를 좋아합니다. 50가지의 독특한 교도소 이야기로 책 출간했습니다. 다양한 글을  쓰고 싶습니다.",
         },
-      },
-      {
-        1: {
-          profileImage:
+        {
+          profile_image:
             "https://img1.daumcdn.net/thumb/C120x120.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/e00Q/image/9kbRLYhUVZ8oyWshmhQAMU-FZ6E",
-          profileName: "문득",
-          profileJob: "출간작가",
-          description:
+          profile_name: "문득",
+          profile_job: "출간작가",
+          profile_desc:
             "앞만 보고 달려가자 바보처럼 울지 말자 너를 위해서 나를 위해서",
         },
-      },
-      {
-        2: {
-          profileImage:
+
+        {
+          profile_image:
             "https://img1.daumcdn.net/thumb/C120x120.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/9Z5x/image/ZdTSz3pNMzpYkTiKyJiwrW-_IYM.JPG",
-          profileName: "고대윤",
-          profileJob: "수의사 포토그래퍼",
-          description:
+          profile_name: "고대윤",
+          profile_job: "수의사 포토그래퍼",
+          profile_desc:
             "사진을 찍고 글을 쓰는 수의사입니다. 누구도 봐주지 않았지만, 2023 [당신의 시간]을 출판했습니다.",
         },
-      },
-      {
-        3: {
-          profileImage:
+
+        {
+          profile_image:
             "	https://img1.daumcdn.net/thumb/C120x120.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/28ME/image/zEqvOGCnHsJdLPWh74XVVUGnTZw.JPG",
-          profileName: "상담자 혜운",
-          profileJob: "상담자혜운 출간작가",
-          description:
+          profile_name: "상담자 혜운",
+          profile_job: "상담자혜운 출간작가",
+          profile_desc:
             "심리학을 전공한, 심리상담을 하는 상담자. 일상에서 일어난 내 마음의 변화, 내 아이의 마음, 더 나아가 타인의 마음을 바라보며 기록하고 있습니다.",
         },
-      },
-      {
-        4: {
-          profileImage:
+
+        {
+          profile_image:
             "https://img1.daumcdn.net/thumb/C120x120/?fname=http://t1.daumcdn.net/brunch/service/user/2RGx/image/nbfX3Nk5akziiBPTtK49f7_vBRI.png",
-          profileName: "기록하는 슬기",
-          profileJob: "에세이스트",
-          description:
+          profile_name: "기록하는 슬기",
+          profile_job: "에세이스트",
+          profile_desc:
             "記록 하는 슬記 / '기록'을 남기고, '마음'을 나누는 일을 오랫동안 하고 싶습니다.",
         },
-      },
 
-      {
-        5: {
-          profileImage:
+        {
+          profile_image:
             "https://img1.daumcdn.net/thumb/C120x120/?fname=http://t1.daumcdn.net/brunch/service/user/8Ac0/image/RTGd_cBTy0wS41nMywxjLG3bZss.jpg",
-          profileName: "스마일펄",
-          profileJob: "에세이스트",
-          description:
+          profile_name: "스마일펄",
+          profile_job: "에세이스트",
+          profile_desc:
             "심리에세이 <부모님과 헤어지는 중입니다> 저자. 심리/인간관계/사랑/연애/결혼/이혼/자존감/일상/노하우 관련 글을 쓰는 중. 사랑스러운 엔프제(ENFJ-T). 따뜻한 감성의 소유자",
         },
-      },
-    ],
-  },
-  300: {
-    name: "IT",
-    list: [
-      {
-        0: {
-          profileImage:
+      ],
+    },
+
+    {
+      category_id: 300,
+      list: [
+        {
+          profile_image:
             "https://img1.daumcdn.net/thumb/C120x120/?fname=http://t1.daumcdn.net/brunch/service/user/bcpZ/image/d0KK2Y49Qi2sK9w404R7NogfSvA.png",
-          profileName: "카카오벤처스",
-          profileJob: "카카오벤처스",
-          description:
+          profile_name: "카카오벤처스",
+          profile_job: "카카오벤처스",
+          profile_desc:
             "카카오벤처스의 공식 블로그 입니다. 카카오벤처스와 함께하는 모두의 이야기를 담아냅니다.",
         },
-      },
-      {
-        1: {
-          profileImage:
+
+        {
+          profile_image:
             "https://img1.daumcdn.net/thumb/C120x120/?fname=http://t1.daumcdn.net/brunch/service/user/575g/image/8pBE8WbNfkmAa1kdJc_ItB5LE0U.jpg",
-          profileName: "OOJOO",
-          profileJob: "프리랜서 출간작가",
-          description:
+          profile_name: "OOJOO",
+          profile_job: "프리랜서 출간작가",
+          profile_desc:
             "디지털 기술이 사회와 산업 그리고 기업과 개인에 가져다 주는 변화와 이에 대한 대응 방안을 고민하고 연구하고 있습니다.",
         },
-      },
-      {
-        2: {
-          profileImage:
+
+        {
+          profile_image:
             "https://img1.daumcdn.net/thumb/C120x120/?fname=http://t1.daumcdn.net/brunch/service/user/lzk/image/w1pf3bdLmRVsWjjX9uoHXMadq0o.jpg",
-          profileName: "엄지용",
-          profileJob: "커넥터스 크리에이터",
-          description:
+          profile_name: "엄지용",
+          profile_job: "커넥터스 크리에이터",
+          profile_desc:
             "국내 최대 유통물류 버티컬 콘텐츠 멤버십 '커넥터스' 운영합니다.",
         },
-      },
-      {
-        3: {
-          profileImage:
+
+        {
+          profile_image:
             "https://img1.daumcdn.net/thumb/C120x120.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/7zIK/image/KodOR8YeUUCf-D12WEJ2Uimr3sE.JPG",
-          profileName: "여행하는 기획자",
-          profileJob: "출간작가",
-          description:
+          profile_name: "여행하는 기획자",
+          profile_job: "출간작가",
+          profile_desc:
             "UX 박사과정생이자 10년차 서비스기획자.흩어지는 순간을 기억하고자 기록합니다.",
         },
-      },
-      {
-        4: {
-          profileImage:
+
+        {
+          profile_image:
             "https://img1.daumcdn.net/thumb/C120x120/?fname=http://t1.daumcdn.net/brunch/service/user/4qBH/image/HMjWRMkecW05rIM-ELHHIBQq41g.jpg",
-          profileName: "김태완",
-          profileJob: "교수",
-          description:
+          profile_name: "김태완",
+          profile_job: "교수",
+          profile_desc:
             "변화하는 세상을 함께 공감하고자 하는 김태완의 브런치입니다.",
         },
-      },
 
-      {
-        5: {
-          profileImage:
+        {
+          profile_image:
             "https://img1.daumcdn.net/thumb/C120x120/?fname=http://t1.daumcdn.net/brunch/service/user/2joe/image/gjE6kYxkU9DZkxkZ-ohYvuXiDnY.png",
-          profileName: "유플리트",
-          profileJob: "디지털에이전시",
-          description:
+          profile_name: "유플리트",
+          profile_job: "디지털에이전시",
+          profile_desc:
             "<공공의적><이중간첩><가족시네마>의 시나리오 작가. <순애보>의 편집감독, <망명>의 영화감독. <빙상의신> 드라마 작가. <천공의 섬 아저씨>의 일러스트 수필작가.",
         },
-      },
-    ],
-  },
+      ],
+    },
+  ],
 };
 
 interface FakeDataList {
   category: Category[];
-  [key: number]: FakeData;
+  results: DataByCategory[];
 }
+
 interface Category {
   id: number;
   name: string;
 }
-interface FakeData {
-  name: string;
-  list: FakeDataItem[];
+
+interface DataByCategory {
+  category_id: number;
+  list: Profile[];
 }
-interface FakeDataItem {
-  [key: number]: {
-    profileImage: string;
-    profileName: string;
-    profileJob: string;
-    description: string;
-  };
+
+interface Profile {
+  profile_image: string;
+  profile_name: string;
+  profile_job: string;
+  profile_desc: string;
 }
 
 interface Category {
@@ -244,57 +223,57 @@ interface ProfileProps {
 interface ButtonProps {
   fontSize: string;
   $padding: string;
-  $isActive: boolean;
+  $isActive?: boolean;
 }
 const Writers = () => {
-  const [categoryId, setCategoryId] = useState(fakeDataList.category[0].id);
-  const handleCategoryClick = (id: number) => {
-    setCategoryId(id);
+  const [activeButton, setActiveButton] = useState(0); // 활성화된 버튼 번호(0~2)
+  const handleCategoryClick = (buttonId: number) => {
+    setActiveButton(buttonId);
   };
   return (
     <div style={{ backgroundColor: "#FAFAFA", paddingTop: "100px" }}>
       <Title>B R U N C H W R I T E R S</Title>
       <SubTitle>브런치 추천 작가</SubTitle>
+
+      {/* 카테고리 버튼  */}
       <UL style={{ marginTop: "43px" }}>
-        {fakeDataList.category.map((category) => (
+        {fakeDataList.category.map((category, buttonId) => (
           <li key={category.id}>
             <Button
               fontSize="15px"
               $padding="7px 16px 6px"
-              $isActive={true}
-              onClick={() => handleCategoryClick(category.id)}
+              $isActive={activeButton === buttonId}
+              onClick={() => handleCategoryClick(buttonId)}
             >
               {category.name}
             </Button>
           </li>
         ))}
       </UL>
+
+      {/* 카테고리별 프로필 리스트 */}
       <div style={{ paddingBottom: "100px" }}>
         <WriterContainer
           style={{ width: "fit-content", margin: "50px auto 0" }}
         >
-          {fakeDataList[categoryId].list.map((data, i) => (
+          {fakeDataList.results[activeButton].list.map((data, i) => (
             <WriterItem key={i}>
-              <Profile $imageUrl={data[i].profileImage}></Profile>
-              <Name>{data[i].profileName}</Name>
-              <Job>{data[i].profileJob}</Job>
-              <Description>{data[i].description}</Description>
+              <StyledProfile $imageUrl={data.profile_image}></StyledProfile>
+              <Name>{data.profile_name}</Name>
+              <Job>{data.profile_job}</Job>
+              <Description>{data.profile_desc}</Description>
               <UL>
-                <li>
-                  <Button fontSize="12px" $padding="4px 10px" $isActive={false}>
-                    콘텐츠
-                  </Button>
-                </li>
-                <li>
-                  <Button fontSize="12px" $padding="4px 10px" $isActive={false}>
-                    글쓰기
-                  </Button>
-                </li>
-                <li>
-                  <Button fontSize="12px" $padding="4px 10px" $isActive={false}>
-                    IT
-                  </Button>
-                </li>
+                {fakeDataList.category.map((data) => (
+                  <li key={data.id}>
+                    <Button
+                      fontSize="12px"
+                      $padding="4px 10px"
+                      $isActive={false}
+                    >
+                      {data.name}
+                    </Button>
+                  </li>
+                ))}
               </UL>
             </WriterItem>
           ))}
@@ -312,7 +291,7 @@ const WriterContainer = styled.div`
   gap: 16px;
 `;
 
-const Profile = styled.figure<ProfileProps>`
+const StyledProfile = styled.figure<ProfileProps>`
   background-color: #fff;
   background-image: url(${(props) => props.$imageUrl});
   background-position: center;
@@ -435,6 +414,7 @@ const Button = styled.button<ButtonProps>`
   color: #959595;
 
   border: ${(props) => (props.$isActive ? "#00c6be" : "#ddd")} 1px solid;
+
   border-radius: 20px;
 
   background-color: #fff;
