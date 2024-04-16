@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 // 카테고리 리스트
 const category = [
@@ -22,6 +23,11 @@ const fakeDataList: FakeDataList = {
           profile_job: "출간작가",
           profile_desc:
             "일하고 배우고 느낀 점을 나누며 삶의 성장으로 안내하는 글을 씁니다. 《나를 찾아가는 글쓰기》, 《아이 키우며 일하는 엄마로 산다는 건》저자",
+          profile_categories: [
+            { id: 100, name: "에세이" },
+            { id: 200, name: "사랑" },
+            { id: 300, name: "IT" },
+          ],
         },
         {
           profile_image:
@@ -30,6 +36,11 @@ const fakeDataList: FakeDataList = {
           profile_job: "카카오",
           profile_desc:
             "카카오의 프라이버시 및 개인정보 관련 정책과 활동을 소개하고, 개인정보에 대해 알고 싶은 모든 분들을 위한 브런치입니다.",
+          profile_categories: [
+            { id: 100, name: "에세이" },
+            { id: 200, name: "해외생활" },
+            { id: 300, name: "IT" },
+          ],
         },
         {
           profile_image:
@@ -38,6 +49,11 @@ const fakeDataList: FakeDataList = {
           profile_job: "방송사 출간작가",
           profile_desc:
             "문화콘텐츠학 박사, 방송사에서 문화사업, 편성PD, 뉴미디어 전략, 콘텐츠 마케팅 등 다양한 업무를 해왔다.",
+          profile_categories: [
+            { id: 100, name: "에세이" },
+            { id: 200, name: "책" },
+            { id: 300, name: "IT" },
+          ],
         },
 
         {
@@ -47,6 +63,11 @@ const fakeDataList: FakeDataList = {
           profile_job: "더테이블세터 강연자",
           profile_desc:
             "The table setter 대표_소셜임팩트 공공소통디자인_아이스크림 원격 연수원 교사직무연수 <고교학점제>강사_네이버 프리미엄 콘텐츠 취미/학습/자기개발 분야 TOP1",
+          profile_categories: [
+            { id: 100, name: "에세이" },
+            { id: 200, name: "교육" },
+            { id: 300, name: "IT" },
+          ],
         },
 
         {
@@ -56,6 +77,11 @@ const fakeDataList: FakeDataList = {
           profile_job: "에디터",
           profile_desc:
             "영화를 통해 사회를 보려 노력하는 또또비됴 브런치 입니다. 극장, VHS, DVD, VOD, OTT 가리지 않고 모든 영화를 좋아합니다.",
+          profile_categories: [
+            { id: 100, name: "에세이" },
+            { id: 200, name: "경영" },
+            { id: 300, name: "IT" },
+          ],
         },
 
         {
@@ -65,6 +91,11 @@ const fakeDataList: FakeDataList = {
           profile_job: "에세이스트",
           profile_desc:
             "<공공의적><이중간첩><가족시네마>의 시나리오 작가. <순애보>의 편집감독, <망명>의 영화감독. <빙상의신> 드라마 작가. <천공의 섬 아저씨>의 일러스트 수필작가.",
+          profile_categories: [
+            { id: 100, name: "에세이" },
+            { id: 200, name: "콘텐츠" },
+            { id: 300, name: "IT" },
+          ],
         },
       ],
     },
@@ -79,6 +110,11 @@ const fakeDataList: FakeDataList = {
           profile_job: "교도관 공무원",
           profile_desc:
             "18년차 교도관 입니다. 운동(유도,주짓수 등)과 책읽기, 글쓰기를 좋아합니다. 50가지의 독특한 교도소 이야기로 책 출간했습니다. 다양한 글을  쓰고 싶습니다.",
+          profile_categories: [
+            { id: 100, name: "사랑" },
+            { id: 200, name: "라이프스타일" },
+            { id: 300, name: "IT" },
+          ],
         },
         {
           profile_image:
@@ -87,6 +123,11 @@ const fakeDataList: FakeDataList = {
           profile_job: "출간작가",
           profile_desc:
             "앞만 보고 달려가자 바보처럼 울지 말자 너를 위해서 나를 위해서",
+          profile_categories: [
+            { id: 100, name: "사랑" },
+            { id: 200, name: "영화" },
+            { id: 300, name: "IT" },
+          ],
         },
 
         {
@@ -96,6 +137,11 @@ const fakeDataList: FakeDataList = {
           profile_job: "수의사 포토그래퍼",
           profile_desc:
             "사진을 찍고 글을 쓰는 수의사입니다. 누구도 봐주지 않았지만, 2023 [당신의 시간]을 출판했습니다.",
+          profile_categories: [
+            { id: 100, name: "사랑" },
+            { id: 200, name: "여행" },
+            { id: 300, name: "IT" },
+          ],
         },
 
         {
@@ -105,6 +151,11 @@ const fakeDataList: FakeDataList = {
           profile_job: "상담자혜운 출간작가",
           profile_desc:
             "심리학을 전공한, 심리상담을 하는 상담자. 일상에서 일어난 내 마음의 변화, 내 아이의 마음, 더 나아가 타인의 마음을 바라보며 기록하고 있습니다.",
+          profile_categories: [
+            { id: 100, name: "사랑" },
+            { id: 200, name: "해외생활" },
+            { id: 300, name: "IT" },
+          ],
         },
 
         {
@@ -114,6 +165,11 @@ const fakeDataList: FakeDataList = {
           profile_job: "에세이스트",
           profile_desc:
             "記록 하는 슬記 / '기록'을 남기고, '마음'을 나누는 일을 오랫동안 하고 싶습니다.",
+          profile_categories: [
+            { id: 100, name: "사랑" },
+            { id: 200, name: "여행" },
+            { id: 300, name: "IT" },
+          ],
         },
 
         {
@@ -123,6 +179,11 @@ const fakeDataList: FakeDataList = {
           profile_job: "에세이스트",
           profile_desc:
             "심리에세이 <부모님과 헤어지는 중입니다> 저자. 심리/인간관계/사랑/연애/결혼/이혼/자존감/일상/노하우 관련 글을 쓰는 중. 사랑스러운 엔프제(ENFJ-T). 따뜻한 감성의 소유자",
+          profile_categories: [
+            { id: 100, name: "사랑" },
+            { id: 200, name: "에세이" },
+            { id: 300, name: "IT" },
+          ],
         },
       ],
     },
@@ -137,6 +198,11 @@ const fakeDataList: FakeDataList = {
           profile_job: "카카오벤처스",
           profile_desc:
             "카카오벤처스의 공식 블로그 입니다. 카카오벤처스와 함께하는 모두의 이야기를 담아냅니다.",
+          profile_categories: [
+            { id: 100, name: "IT" },
+            { id: 200, name: "반려동물" },
+            { id: 300, name: "IT" },
+          ],
         },
 
         {
@@ -146,6 +212,11 @@ const fakeDataList: FakeDataList = {
           profile_job: "프리랜서 출간작가",
           profile_desc:
             "디지털 기술이 사회와 산업 그리고 기업과 개인에 가져다 주는 변화와 이에 대한 대응 방안을 고민하고 연구하고 있습니다.",
+          profile_categories: [
+            { id: 100, name: "IT" },
+            { id: 200, name: "책" },
+            { id: 300, name: "IT" },
+          ],
         },
 
         {
@@ -155,6 +226,11 @@ const fakeDataList: FakeDataList = {
           profile_job: "커넥터스 크리에이터",
           profile_desc:
             "국내 최대 유통물류 버티컬 콘텐츠 멤버십 '커넥터스' 운영합니다.",
+          profile_categories: [
+            { id: 100, name: "IT" },
+            { id: 200, name: "에세이" },
+            { id: 300, name: "IT" },
+          ],
         },
 
         {
@@ -164,6 +240,11 @@ const fakeDataList: FakeDataList = {
           profile_job: "출간작가",
           profile_desc:
             "UX 박사과정생이자 10년차 서비스기획자.흩어지는 순간을 기억하고자 기록합니다.",
+          profile_categories: [
+            { id: 100, name: "IT" },
+            { id: 200, name: "경영" },
+            { id: 300, name: "IT" },
+          ],
         },
 
         {
@@ -173,6 +254,11 @@ const fakeDataList: FakeDataList = {
           profile_job: "교수",
           profile_desc:
             "변화하는 세상을 함께 공감하고자 하는 김태완의 브런치입니다.",
+          profile_categories: [
+            { id: 100, name: "IT" },
+            { id: 200, name: "라이프스타일" },
+            { id: 300, name: "IT" },
+          ],
         },
 
         {
@@ -182,6 +268,11 @@ const fakeDataList: FakeDataList = {
           profile_job: "디지털에이전시",
           profile_desc:
             "<공공의적><이중간첩><가족시네마>의 시나리오 작가. <순애보>의 편집감독, <망명>의 영화감독. <빙상의신> 드라마 작가. <천공의 섬 아저씨>의 일러스트 수필작가.",
+          profile_categories: [
+            { id: 100, name: "IT" },
+            { id: 200, name: "사랑" },
+            { id: 300, name: "IT" },
+          ],
         },
       ],
     },
@@ -208,6 +299,7 @@ interface Profile {
   profile_name: string;
   profile_job: string;
   profile_desc: string;
+  profile_categories: Category[];
 }
 
 interface Category {
@@ -229,6 +321,12 @@ const Writers = () => {
   const [activeButton, setActiveButton] = useState(0); // 활성화된 버튼 번호(0~2)
   const handleCategoryClick = (buttonId: number) => {
     setActiveButton(buttonId);
+  };
+
+  const openWindow = (categoryName: string) => {
+    let url = `https://brunch.co.kr/keyword/profile/${categoryName}`;
+
+    window.open(url, "_blank");
   };
   return (
     <div style={{ backgroundColor: "#FAFAFA", paddingTop: "100px" }}>
@@ -257,20 +355,26 @@ const Writers = () => {
           style={{ width: "fit-content", margin: "50px auto 0" }}
         >
           {fakeDataList.results[activeButton].list.map((data, i) => (
-            <WriterItem key={i}>
+            <WriterItem
+              key={i}
+              to="https://brunch.co.kr/@hmr3341"
+              target="_blank"
+            >
               <StyledProfile $imageUrl={data.profile_image}></StyledProfile>
               <Name>{data.profile_name}</Name>
               <Job>{data.profile_job}</Job>
               <Description>{data.profile_desc}</Description>
+              {/* 한 프로필 당 카테고리 리스트 */}
               <UL>
-                {fakeDataList.category.map((data) => (
-                  <li key={data.id}>
+                {data.profile_categories.map((category) => (
+                  <li key={category.id}>
                     <Button
                       fontSize="12px"
                       $padding="4px 10px"
                       $isActive={false}
+                      onClick={() => openWindow(category.name)}
                     >
-                      {data.name}
+                      {category.name}
                     </Button>
                   </li>
                 ))}
@@ -344,7 +448,14 @@ const Description = styled.span`
   text-align: center;
   display: block;
 `;
-const WriterItem = styled.div`
+
+const DefaultLink = styled(Link)`
+  display: block;
+
+  text-decoration: none;
+  color: inherit;
+`;
+const WriterItem = styled(DefaultLink)`
   font-family: "Noto Sans";
   font-size: 12px;
   font-weight: 300;
@@ -358,7 +469,6 @@ const WriterItem = styled.div`
   padding: 46px 40px;
 `;
 
-// TODO
 const Title = styled.h3`
   background: url("https://t1.daumcdn.net/brunch9/static/images/pc/txt_brunch_v6_221227.png")
     no-repeat;
@@ -378,7 +488,6 @@ const Title = styled.h3`
   margin: 0 auto;
 `;
 
-// TODO
 const SubTitle = styled.p`
   background: url("https://t1.daumcdn.net/brunch9/static/images/pc/txt_brunch_v6_221227.png")
     no-repeat;
@@ -411,6 +520,7 @@ const UL = styled.ul`
 const Button = styled.button<ButtonProps>`
   font-size: ${(props) => props.fontSize};
   letter-spacing: -1px;
+  line-height: 18px;
   color: #959595;
 
   border: ${(props) => (props.$isActive ? "#00c6be" : "#ddd")} 1px solid;
@@ -423,4 +533,6 @@ const Button = styled.button<ButtonProps>`
   padding: ${(props) => props.$padding};
 
   cursor: pointer;
+
+  display: block;
 `;
