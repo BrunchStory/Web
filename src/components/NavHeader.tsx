@@ -20,7 +20,7 @@ interface Props {
   headerprops: PropsType;
 }
 
-const SlideMenu = ({ headerprops }: Props) => {
+const NavHeader = ({ headerprops }: Props) => {
   const {
     show,
     scrollY,
@@ -40,7 +40,6 @@ const SlideMenu = ({ headerprops }: Props) => {
           onClick={() => {
             setIsOpen(true);
             setClosed?.(true);
-            console.log(1);
           }}
         />
 
@@ -71,7 +70,7 @@ const SlideMenu = ({ headerprops }: Props) => {
   );
 };
 
-export default SlideMenu;
+export default NavHeader;
 
 const NavMenu = styled.div<{ $show: string; $scrolly: number }>`
   display: flex;
