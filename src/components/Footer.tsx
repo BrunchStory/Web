@@ -45,6 +45,7 @@ const Footer = () => {
   const moreInfoClick = () => {
     setMoreInfo((prev) => !prev);
   };
+
   return (
     <StyledFooter>
       <InnerFoot>
@@ -60,7 +61,9 @@ const Footer = () => {
           <LinkContainer>
             {listService.map((item, i) => (
               <LinkItem key={i}>
-                <StyledLink to={item.link}>{item.title}</StyledLink>
+                <StyledLink to={item.link} target="_blank">
+                  {item.title}
+                </StyledLink>
               </LinkItem>
             ))}
           </LinkContainer>
@@ -68,7 +71,9 @@ const Footer = () => {
           <LinkContainer>
             {listPolicy.map((item, i) => (
               <LinkItem key={i}>
-                <StyledLink to={item.link}>{item.title}</StyledLink>
+                <StyledLink to={item.link} target="_blank">
+                  {item.title}
+                </StyledLink>
               </LinkItem>
             ))}
           </LinkContainer>
@@ -76,7 +81,9 @@ const Footer = () => {
           <LinkContainer>
             {listSns.map((item, i) => (
               <LinkItem key={i}>
-                <StyledLink to={item.link}>{item.title}</StyledLink>
+                <StyledLink to={item.link} target="_blank">
+                  {item.title}
+                </StyledLink>
               </LinkItem>
             ))}
           </LinkContainer>
@@ -114,6 +121,7 @@ const Footer = () => {
               $posX="-260px"
               $posY="-100px"
               to="https://play.google.com/store/apps/details?id=com.daumkakao.android.brunchapp"
+              target="_blank"
             >
               안드로이드 앱 다운로드
             </LinkIcon>
@@ -121,6 +129,7 @@ const Footer = () => {
               $posX="-290px"
               $posY="-100px"
               to="https://apps.apple.com/kr/app/%EB%B8%8C%EB%9F%B0%EC%B9%98%EC%8A%A4%ED%86%A0%EB%A6%AC-%EC%A2%8B%EC%9D%80-%EA%B8%80%EA%B3%BC-%EC%9E%91%EA%B0%80%EB%A5%BC-%EB%A7%8C%EB%82%98%EB%B3%B4%EC%84%B8%EC%9A%94/id1001388574"
+              target="_blank"
             >
               아이폰 앱 다운로드
             </LinkIcon>
