@@ -81,6 +81,7 @@ const WeekdayListContainer = styled.div`
   justify-content: center;
   width: 960px;
   height: 833px;
+  margin: 0 auto;
 `;
 
 const Title = styled.h3`
@@ -120,7 +121,7 @@ const Week = styled(Link)<{ isSelected: boolean }>`
   font-size: 14px;
   padding: 0 14px 12px;
   cursor: pointer;
-  text-decoration: none;
+
   // relative로 ul에 기준을 맞춤
   position: relative;
 
@@ -141,7 +142,6 @@ const LatestLikesContainer = styled.div`
   justify-content: flex-end;
   align-items: center;
   padding: 30px 25px 20px;
-  box-sizing: border-box;
 `;
 
 const LatestLikes = styled(Link)<{ isSelected: boolean }>`
@@ -150,7 +150,6 @@ const LatestLikes = styled(Link)<{ isSelected: boolean }>`
   padding: 0 0 0 12px;
   cursor: pointer;
   position: relative;
-  text-decoration: none;
 
   &:last-child {
     margin-left: 8px;
@@ -194,5 +193,4 @@ const Serials = styled(Link)`
   color: #333;
   line-height: 38px;
   font-size: 14px;
-  text-decoration: none;
 `;
