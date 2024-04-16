@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import SideBar from "./Sidebar";
 import Modal from "./Modal";
-import SlideMenu from "./SlideMenu";
+import NavHeader from "./NavHeader";
 import { Img } from "../styles/global";
 
 interface Props {
@@ -113,7 +113,7 @@ const Header = ({ homeProps }: Props) => {
           브론치 작가 모두에게 수익의 기회가 열립니다. 응원하기 정식 오픈
         </div>
       </BannerContainer>
-      <SlideMenu headerprops={headerProps} />
+      <NavHeader headerprops={headerProps} />
 
       <SideBar
         isOpen={isOpen}
