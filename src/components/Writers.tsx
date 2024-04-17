@@ -329,7 +329,12 @@ const Writers = () => {
     window.open(url, "_blank");
   };
   return (
-    <div style={{ backgroundColor: "#FAFAFA", paddingTop: "100px" }}>
+    <div
+      style={{
+        backgroundColor: "#FAFAFA",
+        paddingTop: "100px",
+      }}
+    >
       <Title>B R U N C H W R I T E R S</Title>
       <SubTitle>브런치 추천 작가</SubTitle>
 
@@ -425,6 +430,7 @@ const Name = styled.strong`
 `;
 
 const Job = styled.span`
+  font-family: "Noto Sans Light", sans-serif;
   line-height: 18px;
   letter-spacing: -0.02em;
   text-align: center;
@@ -436,6 +442,7 @@ const Job = styled.span`
 `;
 
 const Description = styled.span`
+  font-family: "Noto Sans Light", sans-serif;
   line-height: 20px;
   color: #959595;
 
@@ -456,7 +463,6 @@ const DefaultLink = styled(Link)`
   color: inherit;
 `;
 const WriterItem = styled(DefaultLink)`
-  font-family: "Noto Sans";
   font-size: 12px;
   font-weight: 300;
 
@@ -518,6 +524,7 @@ const UL = styled.ul`
 `;
 
 const Button = styled.button<ButtonProps>`
+  font-family: "Noto Sans Light", sans-serif;
   font-size: ${(props) => props.fontSize};
   letter-spacing: -1px;
   line-height: 18px;

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 import { LeftButton, RightButton } from "./ScrollButton";
 
@@ -13,11 +14,13 @@ const EditorPick = () => {
   const [slidePosition, setSlidPosition] = useState(0); // x좌표로 얼마만큼 이동했는지
   const [activePage, setActivePage] = useState(1); // 현재 활성화된 페이지번호(1~10)
 
+  /** 페이지 버튼 클릭 */
   const handleNumberButtonClick = (x: number, pageNum: number) => {
     setSlidPosition(x);
     setActivePage(pageNum);
   };
 
+  /** 스크롤 (왼, 오) 버튼 클릭 */
   const handleScrollButtonClick = (isLeftButton: boolean) => {
     console.log(activePage);
 
@@ -54,17 +57,37 @@ const EditorPick = () => {
           <li>
             <div
               style={{ width: "480px", height: "520px", background: "#ff9be9" }}
-            ></div>
+            >
+              <Type1 width="100%" height="50%" />
+              <Type1 width="100%" height="50%" />
+            </div>
           </li>
           <li>
             <div
-              style={{ width: "960px", height: "520px", background: "#ffc2a4" }}
-            ></div>
+              style={{
+                width: "960px",
+                height: "520px",
+                background: "#ffc2a4",
+                display: "flex",
+              }}
+            >
+              <Type2 width="50%" height="100%" />
+              <Type2 width="50%" height="100%" />
+              <Type2 width="50%" height="100%" />
+            </div>
           </li>
           <li>
             <div
-              style={{ width: "960px", height: "520px", background: "#0c3c8e" }}
-            ></div>
+              style={{
+                width: "960px",
+                height: "520px",
+                background: "#0c3c8e",
+                display: "flex",
+              }}
+            >
+              <Type2 width="50%" height="100%" />
+              <Type2 width="50%" height="100%" />
+            </div>
           </li>
           <li>
             <div
@@ -145,6 +168,130 @@ const EditorPick = () => {
 };
 
 export default EditorPick;
+
+interface TypeProps {
+  width: string;
+  height: string;
+}
+const Type1: React.FC<TypeProps> = ({ width, height }) => {
+  return (
+    <div style={{ width: width, height: height }}>
+      <DefaultLink to="/">
+        <BackImage
+          src="https://img1.daumcdn.net/thumb/C480x260.fjpg/?fname=https://t1.daumcdn.net/tromm/content/20240402053817382"
+          alt=""
+        ></BackImage>
+        <TextArea>
+          <Strong>
+            선생님 자녀는
+            <br />
+            어떻게
+            <br />
+            키우시는데요
+          </Strong>
+          <Author>
+            <span>by</span> AskerJ
+          </Author>
+        </TextArea>
+      </DefaultLink>
+    </div>
+  );
+};
+
+const Type2: React.FC<TypeProps> = ({ width, height }) => {
+  return (
+    <div style={{ width: width, height: height }}>
+      <DefaultLink to="/">
+        <BackImage
+          src="https://img.freepik.com/free-photo/beautiful-shot-of-high-white-hilltops-and-mountains-covered-in-fog_181624-399.jpg"
+          alt=""
+        ></BackImage>
+        <TextArea>
+          <Strong>
+            선생님 자녀는
+            <br />
+            어떻게
+            <br />
+            키우시는데요
+          </Strong>
+          <Desc>
+            "화이팅!"을 외치는 쾌활하고 당찬
+            <br />
+            목소리, 예쁜 빨간 입술의 그녀...
+          </Desc>
+          <Author>
+            <span>by</span> AskerJ
+          </Author>
+        </TextArea>
+      </DefaultLink>
+    </div>
+  );
+};
+
+////////////////////////////////////////
+const BackImage = styled.img`
+  width: 100%;
+  height: 100%;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  filter: brightness(65%);
+
+  &:hover {
+    transform: scale(1.1);
+    filter: brightness(50%);
+  }
+  transition: transform 0.3s ease-in-out;
+`;
+const TextArea = styled.div`
+  width: 200px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  pointer-events: none;
+`;
+
+const Strong = styled.strong`
+  font-family: "Nanum Myeongjo", sans-serif;
+  font-weight: 400;
+  font-size: 26px;
+  letter-spacing: -0.025em;
+  line-height: 36px;
+  text-align: center;
+
+  display: block;
+`;
+
+const Author = styled.div`
+  font-family: "Noto Sans Light", san-serif;
+  padding-top: 20px;
+  font-size: 12px;
+  text-align: center;
+
+  opacity: 0.8;
+`;
+const Desc = styled.div`
+  font-family: "Noto Sans Light", san-serif;
+  font-size: 12px;
+  padding-top: 9px;
+  line-height: 20px;
+  text-align: center;
+`;
+const DefaultLink = styled(Link)`
+  color: #fff;
+  text-decoration: none;
+
+  width: 100%;
+  height: 100%;
+  display: block;
+
+  overflow: hidden;
+  position: relative;
+`;
+////////////////////////////////////////
 
 const DefaultUl = styled.ul`
   list-style: none;
