@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 // 가짜 임시 데이터
 const fakeData: FakeData = {
@@ -51,7 +52,7 @@ const Keyword = () => {
         {" "}
         <KeywordContainer>
           {fakeData.list.map((data, i) => (
-            <KeywordItem key={i}>
+            <KeywordItem key={i} to="/">
               <StyledTxt>{data[i].description}</StyledTxt>
               {data[i].isNew === "true" && <Icon></Icon>}
             </KeywordItem>
@@ -70,7 +71,9 @@ const Icon = styled.span`
   width: 16px;
   height: 16px;
 
-  background-color: #00c6be;
+  background: url("	https://t1.daumcdn.net/brunch/static/img/help/pc/img_weekly.v2.png")
+    no-repeat;
+  background-position: -77px -80px;
 
   border-radius: 50%;
 `;
@@ -122,7 +125,14 @@ const KeywordContainer = styled.div`
   grid-template-columns: repeat(8, 119px);
   grid-template-rows: repeat(3, 119px);
 `;
-const KeywordItem = styled.div`
+
+const DefaultLink = styled(Link)`
+  display: block;
+
+  text-decoration: none;
+  color: inherit;
+`;
+const KeywordItem = styled(DefaultLink)`
   font-size: 14px;
   line-height: 18px;
 
