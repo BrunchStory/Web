@@ -1,11 +1,22 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { ListProps } from "./WeekWriteList";
-import { Img } from "../styles/global";
+import { Img, fadeIn } from "../styles/global";
 
 interface Props {
   filterData: ListProps[];
 }
+
+const animation_up = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+}
+100% {
+    opacity: 1;
+    transform: translate(0);
+}
+`;
 
 const WriteItems = ({ filterData }: Props) => {
   return (
@@ -13,16 +24,7 @@ const WriteItems = ({ filterData }: Props) => {
       {filterData.map(({ title, text, writer, img }, idx) => {
         return (
           <WriteItemContainer key={idx}>
-            <WriteItem
-              style={{
-                width: "100%",
-                height: "100%",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "flex-start",
-              }}
-            >
+            <WriteItem>
               <span>{title}</span>
               <strong>{text}</strong>
               <span>{writer}</span>
@@ -45,8 +47,8 @@ const WriteItemContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 19px;
-  box-sizing: border-box;
-  cursor: pointer;
+  animation: ${animation_up} 0.5s;
+  transition: opacity 0.2s ease-out 0s, transform 0.5s ease-out 0s;
 `;
 
 const WriteItem = styled.div`

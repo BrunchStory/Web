@@ -1,22 +1,47 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import { faBars, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import SideBar from "./Sidebar";
+import Modal from "./Modal";
+import NavHeader from "./NavHeader";
 import { Img } from "../styles/global";
+import { Link } from "react-router-dom";
 
 interface Props {
-  bannerHeight: number;
+  homeProps: PropsType;
 }
 
-const Header = ({ bannerHeight }: Props) => {
+interface PropsType {
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsSearch: React.Dispatch<React.SetStateAction<boolean>>;
+  openModal: boolean;
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+  isModalOpen: () => void;
+  wordList: {
+    id: number;
+    text: string;
+    selected: boolean;
+  }[];
+  setWordList: React.Dispatch<
+    React.SetStateAction<{ id: number; text: string; selected: boolean }[]>
+  >;
+}
+
+const Header = ({ homeProps }: Props) => {
+  const {
+    isOpen,
+    setIsOpen,
+    setIsSearch,
+    openModal,
+    setOpenModal,
+    isModalOpen,
+    wordList,
+    setWordList,
+  } = homeProps;
   const [scrollY, setScrollY] = useState<number>(0);
-  const [closed, setClosed] = useState<boolean>(false);
+  const [closed, setClosed] = useState<boolean>(true);
+  const [countScrollY, setCountScrollY] = useState<number[]>([]);
   const [show, setShow] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-  const marginTop = offsetValue(bannerHeight);
 
   useEffect(() => {
     const updateScrollY = () => {
@@ -38,61 +63,86 @@ const Header = ({ bannerHeight }: Props) => {
     return () => window.removeEventListener("scroll", updateScrollY);
   }, [scrollY]);
 
+  useEffect(() => {
+    if (scrollY === 0) {
+      countScrollY.push(300);
+    }
+
+    setCountScrollY([...countScrollY]);
+
+    if (countScrollY.length >= 3) {
+      setClosed(false);
+      setCountScrollY([]);
+    }
+  }, [scrollY]);
+
+  const headerProps = {
+    show,
+    scrollY,
+    setIsOpen,
+    setClosed,
+    isModalOpen,
+    setIsSearch,
+    search: false,
+  };
+
   return (
     <HeaderContainer>
-      <BannerContainer
-        $closed={closed.toString()}
-        $bannerheight={bannerHeight}
-        $marginTop={marginTop}
-      >
-        <Img
-          src="https://cdn.pixabay.com/photo/2016/12/13/05/15/puppy-1903313_1280.jpg"
-          alt="사진"
-        />
-        <CancelBtn
-          onClick={() => {
-            setClosed(true);
-          }}
-        >
-          X
-        </CancelBtn>
-        <div
-          style={{
-            position: "absolute",
-            bottom: 15,
-            left: "35%",
-            color: "white",
-            opacity: closed ? 1 : 0,
-            transition: "opacity .3s ease-in",
-            cursor: "pointer",
-          }}
-        >
-          브론치 작가 모두에게 수익의 기회가 열립니다. 응원하기 정식 오픈
-        </div>
-      </BannerContainer>
-      <SideBar isOpen={isOpen} setIsOpen={setIsOpen} />
-      <NavMenu $show={show.toString()} $scrolly={scrollY}>
-        <MenuContainer>
-          <FontAwesomeIcon
-            size={"2x"}
-            icon={faBars as IconProp}
-            style={{ marginRight: "14px" }}
-            onClick={() => setIsOpen(true)}
-          />
+      <BannerContainer $closed={closed.toString()} $marginTop={420}>
+        <ImgContainer>
+          <ImgItem>
+            <Link
+              style={{
+                backgroundImage:
+                  "url(https://t1.daumcdn.net/brunch/op/a4ff48595d8e48cbba5a4086542f88b3.png)",
+              }}
+              className="custom-link"
+              to={"#"}
+            >
+              <Img
+                className="custom-img"
+                src="https://t1.daumcdn.net/brunch/op/0c8e5941f7e145bba3e16a70db29a064.png"
+                alt="사진"
+              />
+            </Link>
+            <Link
+              style={{
+                backgroundImage:
+                  "url(https://t1.daumcdn.net/brunch/op/010273fe05c840298af803622ab5d5f3.png)",
+                opacity: closed ? 1 : 0,
+                transition: "opacity 0.5s ease-in-out",
+              }}
+              className="custom-link-2"
+              to={"#"}
+            >
+              <Img
+                className="custom-img-2"
+                src="https://t1.daumcdn.net/brunch/op/31f5292636424bd399a728ff7a3d47d6.png"
+                alt="사진"
+              />
+            </Link>
+          </ImgItem>
 
-          <Logo to={"/"}>
-            brunch <span>story</span>
-          </Logo>
-        </MenuContainer>
-        <MenuContainer>
-          <StartBtn>시작하기</StartBtn>
-          <FontAwesomeIcon
-            size={"1x"}
-            icon={faMagnifyingGlass as IconProp}
-            style={{ marginLeft: "14px" }}
-          />
-        </MenuContainer>
-      </NavMenu>
+          <CancelBtn
+            onClick={() => {
+              setClosed(true);
+            }}
+          >
+            X
+          </CancelBtn>
+        </ImgContainer>
+      </BannerContainer>
+      <NavHeader headerprops={headerProps} />
+
+      <SideBar
+        isOpen={isOpen}
+        wordList={wordList}
+        setWordList={setWordList}
+        width={260}
+        setIsOpen={setIsOpen}
+        isModalOpen={isModalOpen}
+      />
+      {openModal && <Modal setOpenModal={setOpenModal} />}
     </HeaderContainer>
   );
 };
@@ -100,26 +150,82 @@ const Header = ({ bannerHeight }: Props) => {
 export default Header;
 
 const HeaderContainer = styled.div`
-  height: 10000px;
+  height: auto;
+  width: 100%;
 `;
 
 const BannerContainer = styled.div<{
   $closed: string;
-  $bannerheight: number;
   $marginTop: number;
 }>`
-  width: 100%;
-  height: ${(props) => `${props.$bannerheight}px`};
-  overflow: hidden;
   position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 480px;
+  background-size: cover;
   margin-top: ${(props) =>
     props.$closed === "true" ? `-${props.$marginTop}px` : "0px"};
   transition: margin 0.5s ease-in-out;
 `;
 
+const ImgContainer = styled.ul`
+  overflow: hidden;
+  width: 100%;
+  height: 480px;
+`;
+
+const ImgItem = styled.li`
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  transform: none;
+  transition: transform 0.5s ease-in-out;
+
+  .custom-link {
+    height: 480px;
+    background-size: cover;
+    display: block;
+    width: 100%;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    text-align: center;
+  }
+
+  .custom-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 960px;
+    margin: -240px 0 0 -480px;
+  }
+
+  .custom-link-2 {
+    position: absolute;
+    bottom: 0;
+    height: 60px;
+    display: block;
+    width: 100%;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    text-align: center;
+  }
+
+  .custom-img-2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 960px;
+    margin: -30px 0 0 -480px;
+  }
+`;
+
 const CancelBtn = styled.button`
   position: absolute;
-  top: 50%;
+  top: 45%;
   right: 10%;
   cursor: pointer;
   background-color: transparent;
@@ -127,61 +233,5 @@ const CancelBtn = styled.button`
   border: none;
   font-size: 3.65rem;
   font-weight: 10;
+  z-index: 3;
 `;
-
-const NavMenu = styled.div<{ $show: string; $scrolly: number }>`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: ${(props) => (props.$show === "true" ? "fixed" : "static")};
-  width: 1425px;
-  height: 60px;
-  z-index: 10;
-  background: hsla(0, 0%, 100%, 0.9);
-  padding: 0 30px;
-  box-sizing: border-box;
-  opacity: ${(props) =>
-    props.$show === "true" ? 1 : props.$scrolly < 424 ? 1 : 0};
-  top: 0;
-  transition: opacity 0.3s ease-in 0s;
-`;
-
-const MenuContainer = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const Logo = styled(Link)`
-  text-decoration: none;
-  color: black;
-  font-size: 28px;
-  color: #333;
-
-  span {
-    text-decoration: overline;
-  }
-`;
-
-const StartBtn = styled.div`
-  border: 1px solid #959595;
-  border-radius: 16px;
-  color: #666;
-  font-size: 12px;
-  line-height: 28px;
-  text-align: center;
-  width: 64px;
-  cursor: pointer;
-`;
-
-Header.defaultProps = {
-  bannerHeight: 400,
-};
-
-const offsetValue = (number: number) => {
-  let a = 1;
-  while (number - a !== 60) {
-    a++;
-  }
-
-  return a;
-};

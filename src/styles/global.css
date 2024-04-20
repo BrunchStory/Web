@@ -1,3 +1,4 @@
+
 @font-face {
   font-family: "Nanum Myeongjo";
   font-weight: normal;
@@ -20,4 +21,14 @@
 
 body {
   font-family: "Noto Sans DemiLight", "Malgun Gothic", sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style-type: none;
+  color: #333;
+
 }
