@@ -469,7 +469,7 @@ const WriterItem = styled(DefaultLink)`
   color: #333;
   background-color: #fff;
 
-  width: 230px;
+  width: 310px;
   min-height: 288px;
 
   padding: 46px 40px;
