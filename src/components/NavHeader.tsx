@@ -85,9 +85,10 @@ const NavMenu = styled.div<{ $show: string; $scrolly: number }>`
   opacity: ${(props) =>
     props.$show === "true" ? 1 : props.$scrolly < 424 ? 1 : 0};
   top: 0;
-  transition: opacity 0.3s ease-in 0s;
+  transition: opacity 0.3s ease;
   border-bottom: ${(props) =>
     props.$show === "true" ? "1px solid #ddd" : "none"};
+  float: left;
 `;
 
 const MenuContainer = styled.div`
