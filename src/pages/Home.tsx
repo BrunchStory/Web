@@ -4,15 +4,18 @@ import InfinitePagination from "../components/InfinitePagination";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Keyword from "../components/Keyword";
-import { Img, WhiteSpace } from "../styles/global";
+import { Button, Img, WhiteSpace } from "../styles/global";
 import Writers from "../components/Writers";
 import { Link } from "react-router-dom";
 import Search from "../components/Search";
+import EditorPick from "../components/EditorPick";
+import styled from "styled-components";
 
 const Home = () => {
   const [isSearch, setIsSearch] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [scrollY, setScrollY] = useState<number>(0);
   const [wordList, setWordList] = useState([
     {
       id: 0,
@@ -39,11 +42,13 @@ const Home = () => {
     isOpen,
     wordList,
     openModal,
+    scrollY,
     setIsSearch,
     setIsOpen,
     isModalOpen,
     setWordList,
     setOpenModal,
+    setScrollY,
   };
 
   const searchProps = {
@@ -60,9 +65,12 @@ const Home = () => {
       style={{
         overflow: "hidden",
         height: isSearch ? "100vh" : "auto",
+        position: "relative",
       }}
     >
       <Header homeProps={homeProps} />
+      <WhiteSpace height={204} />
+      <EditorPick />
       <Keyword />
       <WhiteSpace height={147} />
       <WeekdayList />
@@ -85,6 +93,16 @@ const Home = () => {
       </Link>
       <WhiteSpace height={152} />
       <InfinitePagination />
+      <FixBtn
+        onClick={() => {
+          window.scrollTo(0, 0);
+          setScrollY(0);
+        }}
+        $scrolly={scrollY}
+        radius={16}
+        width={60}
+        height={31}
+      />
       <Footer />
       {isSearch && <Search searchProps={searchProps} />}
     </div>
@@ -92,3 +110,21 @@ const Home = () => {
 };
 
 export default Home;
+
+const FixBtn = styled(Button)<{ $scrolly: number }>`
+  position: ${(props) => (props.$scrolly >= 4498 ? "absolute" : "fixed")};
+
+  right: 40px;
+  bottom: ${(props) => (props.$scrolly >= 4498 ? "457px" : "40px")};
+  z-index: 100;
+  background-color: red;
+  transition: opacity 0.55s ease-in;
+  background: url(//t1.daumcdn.net/brunch/static/img/help/pc/view_discover_150824.png)
+    no-repeat;
+  background-position: 0 -90px;
+  opacity: ${(props) => (props.$scrolly >= 2632 ? 1 : 0)};
+
+  &:hover {
+    background-position: -90px -90px;
+  }
+`;
