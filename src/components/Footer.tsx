@@ -36,7 +36,6 @@ const listSns: ListItem[] = [
   { title: "브런치스토리팀 공지사항", link: "/" },
   { title: "공식 카카오톡 채널", link: "/" },
   { title: "공식 인스타그램", link: "/" },
-  { title: "제휴제안", link: "/" },
   { title: "공식 페이스북", link: "/" },
 ];
 
@@ -160,6 +159,8 @@ const MoreButton = styled.button<ButtonProps>`
   height: 22px;
 
   border: none;
+
+  cursor: pointer;
 `;
 const LinkIcons = styled.div`
   display: flex;
@@ -197,10 +198,10 @@ const WrapInfo = styled.div`
   display: flex;
 `;
 const LinkContainer = styled.ul`
-  font-family: "Noto Sans";
+  font-family: "Noto Sans Light,sans-serif";
   font-size: 13px;
   font-weight: 300;
-  letter-spacing: -0.8px;
+  letter-spacing: -0.25px;
 
   list-style: none;
 
@@ -242,6 +243,7 @@ const BrunchIcon = styled.span`
 
 const Slogan = styled.p`
   font-family: Georgia, serif; /** 브라우저가 지원하는 폰트 (별도 설치 안함)*/
+  color: #fff;
   font-size: 16px;
   font-style: italic;
   line-height: 20px;
@@ -249,6 +251,7 @@ const Slogan = styled.p`
 
 const SloganWriter = styled.p`
   font-family: Georgia, serif;
+  color: #fff;
   font-size: 11px;
   font-style: italic;
   letter-spacing: 0.55px;
@@ -277,6 +280,7 @@ const CorpInfoList = styled.ul`
 
 const Small = styled.small`
   font-family: Georgia, serif;
+  color: #fff;
   font-size: 11px;
   font-style: italic;
   opacity: 0.4;
