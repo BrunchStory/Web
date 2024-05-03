@@ -25,6 +25,8 @@ interface PropsType {
   setWordList: React.Dispatch<
     React.SetStateAction<{ id: number; text: string; selected: boolean }[]>
   >;
+  scrollY: number;
+  setScrollY: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const Header = ({ homeProps }: Props) => {
@@ -37,15 +39,20 @@ const Header = ({ homeProps }: Props) => {
     isModalOpen,
     wordList,
     setWordList,
+    scrollY,
+    setScrollY,
   } = homeProps;
-  const [scrollY, setScrollY] = useState<number>(0);
+
   const [closed, setClosed] = useState<boolean>(true);
   const [countScrollY, setCountScrollY] = useState<number[]>([]);
   const [show, setShow] = useState(false);
 
   useEffect(() => {
     const updateScrollY = () => {
-      if (scrollY >= 700) {
+      if (closed === false && scrollY >= 715) {
+        setScrollY(window.pageYOffset);
+        setShow(true);
+      } else if (scrollY >= 292 && closed) {
         setScrollY(window.pageYOffset);
         setShow(true);
       } else {
@@ -54,7 +61,7 @@ const Header = ({ homeProps }: Props) => {
       }
     };
 
-    if (scrollY >= 500) {
+    if (scrollY >= 800) {
       setClosed(true);
     }
 
