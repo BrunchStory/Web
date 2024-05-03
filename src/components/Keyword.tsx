@@ -151,8 +151,8 @@ const KeywordItem = styled(DefaultLink)`
 
   margin: -1px;
   &:hover {
-    border-color: #00c6be;
     color: #00c6be;
+    border-color: #00c6be;
     z-index: 2; /* 마우스 호버 시 border가 겹쳐서 보이지 않을 수 있으므로 높은 z-index 부여 */
   }
 `;

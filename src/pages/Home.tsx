@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import WeekdayList from "../components/WeekdayList";
 import InfinitePagination from "../components/InfinitePagination";
 import Header from "../components/Header";
+import EditorPick from "../components/EditorPick";
 import Footer from "../components/Footer";
 import Keyword from "../components/Keyword";
 import { Button, Img, WhiteSpace } from "../styles/global";
 import Writers from "../components/Writers";
 import { Link } from "react-router-dom";
 import Search from "../components/Search";
-import EditorPick from "../components/EditorPick";
 import styled from "styled-components";
 
 const Home = () => {
