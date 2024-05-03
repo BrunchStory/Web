@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import WeekdayList from "../components/WeekdayList";
 import InfinitePagination from "../components/InfinitePagination";
 import Header from "../components/Header";
+import EditorPick from "../components/EditorPick";
 import Footer from "../components/Footer";
 import Keyword from "../components/Keyword";
 import { Img, WhiteSpace } from "../styles/global";
@@ -63,6 +64,8 @@ const Home = () => {
       }}
     >
       <Header homeProps={homeProps} />
+      <WhiteSpace height={22} />
+      <EditorPick />
       <Keyword />
       <WhiteSpace height={147} />
       <WeekdayList />
