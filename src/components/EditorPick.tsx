@@ -4,12 +4,6 @@ import styled from "styled-components";
 import { LeftButton, RightButton } from "./ScrollButton";
 import { FirstItemType, BookItemType, BlogItemType } from "./EditorPickItems";
 
-interface PageNumProps {
-  $posX: string;
-  $posY: string;
-  $height: string;
-}
-
 export interface FirstItemDataProps {
   title: string;
   description: string;
@@ -228,20 +222,32 @@ const EditorPick = () => {
   const [activePage, setActivePage] = useState(1); // 현재 활성화된 페이지번호(1~10)
 
   /** 페이지 버튼 클릭 */
-  const handleNumberButtonClick = (x: number, pageNum: number) => {
+  const handlePageNum = (pageNum: number) => {
+    let x;
+    if (pageNum === 1) {
+      x = 0;
+    } else {
+      x = -480 + -960 * (pageNum - 2);
+    }
+
     setSlidPosition(x);
     setActivePage(pageNum);
   };
 
   /** 스크롤 (왼, 오) 버튼 클릭 */
-  const handleScrollButtonClick = (isLeftButton: boolean) => {
-    if (isLeftButton) {
-      setSlidPosition((prev) => (prev += activePage === 2 ? 480 : +960));
-      setActivePage((prev) => prev - 1);
-    } else {
-      setSlidPosition((prev) => (prev -= activePage === 1 ? 480 : 960));
-      setActivePage((prev) => prev + 1);
-    }
+  const handleButtonNext = (direction: "right" | "left") => {
+    const directionCase = {
+      right: () => {
+        setSlidPosition((prev) => (prev -= activePage === 2 ? 480 : 960));
+        setActivePage((prev) => prev + 1);
+      },
+      left: () => {
+        setSlidPosition((prev) => (prev += activePage === 1 ? 480 : 960));
+        setActivePage((prev) => prev - 1);
+      },
+    };
+
+    directionCase[direction]();
   };
 
   return (
@@ -250,170 +256,26 @@ const EditorPick = () => {
         {/* 왼쪽 오른쪽 버튼 구현부 */}
         {/* 스크롤 버튼이 2 <= activePage <= 9 일 때만 화면에 표시 */}
         {activePage >= 2 && (
-          <div onClick={() => handleScrollButtonClick(true)}>
+          <div onClick={() => handleButtonNext("left")}>
             <LeftButton $left="30px" $top="50%" />
           </div>
         )}
         {activePage <= 9 && (
-          <div onClick={(e) => handleScrollButtonClick(false)}>
+          <div onClick={(e) => handleButtonNext("right")}>
             <RightButton $right="30px" $top="50%" />
           </div>
         )}
 
         {/* 슬라이드 구현부 */}
-        <WrapSlide
-          style={{
-            transform: `translateX(${slidePosition}px)`,
-            transition: "-webkit-transform 0.3s ease 0s ",
-          }}
-        >
-          {/* 1페이지 */}
-          <li>
-            <div style={{ width: "480px", height: "520px" }}>
-              <FirstItemType FirstItem={FAKE_DATA.firstItem} />
-            </div>
-          </li>
-          {/* 2페이지 */}
-          <li>
-            <ItemListPerPage>
-              <div style={{ width: "480px", height: "520px" }}>
-                <BookItemType BookItem={FAKE_DATA.bookItem} />
-              </div>
-              <div style={{ width: "480px", height: "100%" }}>
-                {[0, 1].map((num, i) => (
-                  <div style={{ width: "100%", height: "50%" }} key={i}>
-                    <BlogItemType BlogItem={FAKE_DATA.blogItem[num]} />
-                  </div>
-                ))}
-              </div>
-            </ItemListPerPage>
-          </li>
-          {/* 3페이지 */}
-          <li>
-            <ItemListPerPage>
-              {[2, 3, 4].map((num, i) => (
-                <div style={{ width: "320px", height: "100%" }} key={i}>
-                  <BlogItemType BlogItem={FAKE_DATA.blogItem[num]} />
-                </div>
-              ))}
-            </ItemListPerPage>
-          </li>
-          {/* 4페이지 */}
-          <li>
-            <ItemListPerPage>
-              {[5, 6, 7, 8].map((num, i) => (
-                <div style={{ width: "50%", height: "50%" }} key={i}>
-                  <BlogItemType BlogItem={FAKE_DATA.blogItem[num]} />
-                </div>
-              ))}
-            </ItemListPerPage>
-          </li>
-          {/* 5페이지 */}
-          <li>
-            <ItemListPerPage>
-              <div style={{ width: "50%", height: "100%" }}>
-                <BlogItemType BlogItem={FAKE_DATA.blogItem[9]} />
-              </div>
-              <div style={{ width: "50%", height: "100%" }}>
-                {[10, 11].map((num, i) => (
-                  <div style={{ width: "100%", height: "50%" }} key={i}>
-                    <BlogItemType BlogItem={FAKE_DATA.blogItem[num]} />
-                  </div>
-                ))}
-              </div>
-            </ItemListPerPage>
-          </li>
-          {/* 6페이지 */}
-          <li>
-            <ItemListPerPage>
-              {[12, 13, 14].map((num, i) => (
-                <div style={{ width: "320px", height: "100%" }} key={i}>
-                  <BlogItemType BlogItem={FAKE_DATA.blogItem[num]} />
-                </div>
-              ))}
-            </ItemListPerPage>
-          </li>
-          {/* 7페이지 */}
-          <li>
-            <ItemListPerPage>
-              <div style={{ width: "100%", height: "320px" }}>
-                <BlogItemType BlogItem={FAKE_DATA.blogItem[15]} />
-              </div>
-              {[16, 17, 18].map((num, i) => (
-                <div style={{ width: "320px", height: "200px" }} key={i}>
-                  <BlogItemType BlogItem={FAKE_DATA.blogItem[num]} />
-                </div>
-              ))}
-            </ItemListPerPage>
-          </li>
-          {/* 8페이지 */}
-          <li>
-            <ItemListPerPage>
-              <div style={{ width: "50%", height: "100%" }}>
-                <BlogItemType BlogItem={FAKE_DATA.blogItem[19]} />
-              </div>
-              <div style={{ width: "50%", height: "100%" }}>
-                {[19, 20].map((num, i) => (
-                  <div style={{ width: "100%", height: "50%" }} key={i}>
-                    <BlogItemType BlogItem={FAKE_DATA.blogItem[num]} />
-                  </div>
-                ))}
-              </div>
-            </ItemListPerPage>
-          </li>
-          {/* 9페이지 */}
-          <li>
-            <ItemListPerPage>
-              {[2, 3, 4].map((num, i) => (
-                <div style={{ width: "320px", height: "100%" }} key={i}>
-                  <BlogItemType BlogItem={FAKE_DATA.blogItem[num]} />
-                </div>
-              ))}
-            </ItemListPerPage>
-          </li>
-          {/* 10페이지 */}
-          <li>
-            <ItemListPerPage>
-              <div style={{ width: "100%", height: "320px" }}>
-                <BlogItemType BlogItem={FAKE_DATA.blogItem[14]} />
-              </div>
-              {[15, 16, 17].map((num, i) => (
-                <div style={{ width: "320px", height: "200px" }} key={i}>
-                  <BlogItemType BlogItem={FAKE_DATA.blogItem[num]} />
-                </div>
-              ))}
-            </ItemListPerPage>
-          </li>
-        </WrapSlide>
+        <SlideContainer slidePosition={slidePosition}>
+          <SlideInner />
+        </SlideContainer>
       </div>
 
       {/* 페이지 버튼 구현부 */}
       <div style={{ margin: "22px auto 0px", width: "fit-content" }}>
-        <PageButton onClick={() => handleNumberButtonClick(0, 1)}>
-          <PageNum
-            $posX="0"
-            $posY={activePage === 1 ? "-10" : "0"}
-            $height={activePage === 1 ? "12" : "9"}
-          >
-            1
-          </PageNum>
-        </PageButton>
-        <PageButton onClick={() => handleNumberButtonClick(-480, 2)}>
-          <PageNum
-            $posX="-20"
-            $posY={activePage === 2 ? "-10" : "0"}
-            $height={activePage === 2 ? "12" : "9"}
-          >
-            2
-          </PageNum>
-        </PageButton>
-        {[3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
-          <PageButton
-            key={num}
-            onClick={() =>
-              handleNumberButtonClick(-480 + -960 * (num - 2), num)
-            }
-          >
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
+          <PageButton key={num} onClick={() => handlePageNum(num)}>
             <PageNum
               $posX={`${-20 * (num - 1)}`}
               $posY={activePage === num ? "-10" : "0"}
@@ -428,6 +290,138 @@ const EditorPick = () => {
   );
 };
 
+interface SlideProps {
+  children: React.ReactNode;
+  slidePosition: number;
+}
+
+const SlideContainer: React.FC<SlideProps> = ({ children, slidePosition }) => {
+  return <WrapSlide $slidePosition={slidePosition}>{children}</WrapSlide>;
+};
+
+const SlideInner = () => {
+  return (
+    <>
+      {/* 1페이지 */}
+      <li>
+        <div style={{ width: "480px", height: "520px" }}>
+          <FirstItemType FirstItem={FAKE_DATA.firstItem} />
+        </div>
+      </li>
+      {/* 2페이지 */}
+      <li>
+        <ItemListPerPage>
+          <div style={{ width: "480px", height: "520px" }}>
+            <BookItemType BookItem={FAKE_DATA.bookItem} />
+          </div>
+          <div style={{ width: "480px", height: "100%" }}>
+            {[0, 1].map((num, i) => (
+              <div style={{ width: "100%", height: "50%" }} key={i}>
+                <BlogItemType BlogItem={FAKE_DATA.blogItem[num]} />
+              </div>
+            ))}
+          </div>
+        </ItemListPerPage>
+      </li>
+      {/* 3페이지 */}
+      <li>
+        <ItemListPerPage>
+          {[2, 3, 4].map((num, i) => (
+            <div style={{ width: "320px", height: "100%" }} key={i}>
+              <BlogItemType BlogItem={FAKE_DATA.blogItem[num]} />
+            </div>
+          ))}
+        </ItemListPerPage>
+      </li>
+      {/* 4페이지 */}
+      <li>
+        <ItemListPerPage>
+          {[5, 6, 7, 8].map((num, i) => (
+            <div style={{ width: "50%", height: "50%" }} key={i}>
+              <BlogItemType BlogItem={FAKE_DATA.blogItem[num]} />
+            </div>
+          ))}
+        </ItemListPerPage>
+      </li>
+      {/* 5페이지 */}
+      <li>
+        <ItemListPerPage>
+          <div style={{ width: "50%", height: "100%" }}>
+            <BlogItemType BlogItem={FAKE_DATA.blogItem[9]} />
+          </div>
+          <div style={{ width: "50%", height: "100%" }}>
+            {[10, 11].map((num, i) => (
+              <div style={{ width: "100%", height: "50%" }} key={i}>
+                <BlogItemType BlogItem={FAKE_DATA.blogItem[num]} />
+              </div>
+            ))}
+          </div>
+        </ItemListPerPage>
+      </li>
+      {/* 6페이지 */}
+      <li>
+        <ItemListPerPage>
+          {[12, 13, 14].map((num, i) => (
+            <div style={{ width: "320px", height: "100%" }} key={i}>
+              <BlogItemType BlogItem={FAKE_DATA.blogItem[num]} />
+            </div>
+          ))}
+        </ItemListPerPage>
+      </li>
+      {/* 7페이지 */}
+      <li>
+        <ItemListPerPage>
+          <div style={{ width: "100%", height: "320px" }}>
+            <BlogItemType BlogItem={FAKE_DATA.blogItem[15]} />
+          </div>
+          {[16, 17, 18].map((num, i) => (
+            <div style={{ width: "320px", height: "200px" }} key={i}>
+              <BlogItemType BlogItem={FAKE_DATA.blogItem[num]} />
+            </div>
+          ))}
+        </ItemListPerPage>
+      </li>
+      {/* 8페이지 */}
+      <li>
+        <ItemListPerPage>
+          <div style={{ width: "50%", height: "100%" }}>
+            <BlogItemType BlogItem={FAKE_DATA.blogItem[19]} />
+          </div>
+          <div style={{ width: "50%", height: "100%" }}>
+            {[19, 20].map((num, i) => (
+              <div style={{ width: "100%", height: "50%" }} key={i}>
+                <BlogItemType BlogItem={FAKE_DATA.blogItem[num]} />
+              </div>
+            ))}
+          </div>
+        </ItemListPerPage>
+      </li>
+      {/* 9페이지 */}
+      <li>
+        <ItemListPerPage>
+          {[2, 3, 4].map((num, i) => (
+            <div style={{ width: "320px", height: "100%" }} key={i}>
+              <BlogItemType BlogItem={FAKE_DATA.blogItem[num]} />
+            </div>
+          ))}
+        </ItemListPerPage>
+      </li>
+      {/* 10페이지 */}
+      <li>
+        <ItemListPerPage>
+          <div style={{ width: "100%", height: "320px" }}>
+            <BlogItemType BlogItem={FAKE_DATA.blogItem[14]} />
+          </div>
+          {[15, 16, 17].map((num, i) => (
+            <div style={{ width: "320px", height: "200px" }} key={i}>
+              <BlogItemType BlogItem={FAKE_DATA.blogItem[num]} />
+            </div>
+          ))}
+        </ItemListPerPage>
+      </li>
+    </>
+  );
+};
 export default EditorPick;
 
 const DefaultUl = styled.ul`
@@ -439,7 +433,7 @@ const DefaultUl = styled.ul`
   overflow: visible;
 `;
 
-const WrapSlide = styled(DefaultUl)`
+const WrapSlide = styled(DefaultUl)<{ $slidePosition: number }>`
   width: 960px;
   height: 520px;
 
@@ -448,6 +442,9 @@ const WrapSlide = styled(DefaultUl)`
   display: flex;
 
   background-color: #d9d9d9;
+
+  transform: translateX(${(props) => props.$slidePosition}px);
+  transition: -webkit-transform 0.3s ease 0s;
 `;
 
 const ItemListPerPage = styled.div`
@@ -469,7 +466,7 @@ const PageButton = styled.button`
   cursor: pointer;
 `;
 
-const PageNum = styled.span<PageNumProps>`
+const PageNum = styled.span<{ $height: string; $posX: string; $posY: string }>`
   text-indent: -9999px;
   width: 13px;
   height: ${(props) => props.$height}px;
