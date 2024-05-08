@@ -235,14 +235,28 @@ const EditorPick = () => {
   };
 
   /** 스크롤 (왼, 오) 버튼 클릭 */
-  const handleButtonNext = (direction: "right" | "left") => {
+  const onNext = (direction: "right" | "left") => {
     const directionCase = {
       right: () => {
-        setSlidPosition((prev) => (prev -= activePage === 2 ? 480 : 960));
+        setSlidPosition((prev) => {
+          if (activePage === 1) {
+            prev -= 480;
+          } else {
+            prev -= 960;
+          }
+          return prev;
+        });
         setActivePage((prev) => prev + 1);
       },
       left: () => {
-        setSlidPosition((prev) => (prev += activePage === 1 ? 480 : 960));
+        setSlidPosition((prev) => {
+          if (activePage === 2) {
+            prev += 480;
+          } else {
+            prev += 960;
+          }
+          return prev;
+        });
         setActivePage((prev) => prev - 1);
       },
     };
@@ -256,14 +270,14 @@ const EditorPick = () => {
         {/* 왼쪽 오른쪽 버튼 구현부 */}
         {/* 스크롤 버튼이 2 <= activePage <= 9 일 때만 화면에 표시 */}
         {activePage >= 2 && (
-          <div onClick={() => handleButtonNext("left")}>
-            <LeftButton $left="30px" $top="50%" />
-          </div>
+          <LeftButton $left="30px" $top="50%" onClick={() => onNext("left")} />
         )}
         {activePage <= 9 && (
-          <div onClick={(e) => handleButtonNext("right")}>
-            <RightButton $right="30px" $top="50%" />
-          </div>
+          <RightButton
+            $right="30px"
+            $top="50%"
+            onClick={() => onNext("right")}
+          />
         )}
 
         {/* 슬라이드 구현부 */}
@@ -299,7 +313,7 @@ const SlideContainer: React.FC<SlideProps> = ({ children, slidePosition }) => {
   return <WrapSlide $slidePosition={slidePosition}>{children}</WrapSlide>;
 };
 
-const SlideInner = () => {
+const SlideInner = React.memo(() => {
   return (
     <>
       {/* 1페이지 */}
@@ -421,7 +435,7 @@ const SlideInner = () => {
       </li>
     </>
   );
-};
+});
 export default EditorPick;
 
 const DefaultUl = styled.ul`
