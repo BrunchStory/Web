@@ -5,15 +5,12 @@ interface ButtonProps {
   $top: string;
   $left?: string;
   $right?: string;
+  onClick: (e: React.MouseEvent<HTMLSpanElement>) => void;
 }
 
-interface ButtonImageProps {
-  $backgroundPosition: string;
-}
-
-export const LeftButton = ({ $top, $left }: ButtonProps) => {
+export const LeftButton = ({ $top, $left, onClick }: ButtonProps) => {
   return (
-    <ButtonContainer $top={$top} $left={$left}>
+    <ButtonContainer $top={$top} $left={$left} onClick={onClick}>
       <ButtonImage $backgroundPosition="-167px -175px">
         이전 에디터픽 보기
       </ButtonImage>
@@ -21,11 +18,11 @@ export const LeftButton = ({ $top, $left }: ButtonProps) => {
   );
 };
 
-export const RightButton = ({ $top, $right }: ButtonProps) => {
+export const RightButton = ({ $top, $right, onClick }: ButtonProps) => {
   return (
-    <ButtonContainer $top={$top} $right={$right}>
+    <ButtonContainer $top={$top} $right={$right} onClick={onClick}>
       <ButtonImage $backgroundPosition="-269px -175px">
-        이전 에디터픽 보기
+        다음 에디터픽 보기
       </ButtonImage>
     </ButtonContainer>
   );
@@ -46,7 +43,7 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const ButtonImage = styled(Button)<ButtonImageProps>`
+const ButtonImage = styled(Button)<{ $backgroundPosition: string }>`
   background: url("https://t1.daumcdn.net/brunch9/static/images/pc/ico_brunch_v9_230901.png")
     no-repeat;
   background-position: ${(props) => props.$backgroundPosition};
