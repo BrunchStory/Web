@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Button, Img } from "../styles/global";
-import styled, { css } from "styled-components";
+import { Img } from "../styles/global";
+import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { RightButton, LeftButton } from "./ScrollButton";
 
 interface DataItem {
   imgUrl?: string;
@@ -349,26 +350,18 @@ const InfinitePagination = () => {
           ))}
         </ListSlide>
       </ListSlideContainer>
-      <ArrowBtn
-        $right={"right"}
+      <div
+        style={{ visibility: enableBtn.right ? "hidden" : "visible" }}
         onClick={() => onNext("right")}
-        width={100}
-        height={101}
-        radius={64}
-        hidden={enableBtn.right}
       >
-        →
-      </ArrowBtn>
-      <ArrowBtn
-        $left={"left"}
+        <RightButton $right={"2%"} $top={"40%"} />
+      </div>
+      <div
+        style={{ visibility: enableBtn.left ? "hidden" : "visible" }}
         onClick={() => onNext("left")}
-        width={100}
-        height={101}
-        radius={64}
-        hidden={enableBtn.left}
       >
-        ←
-      </ArrowBtn>
+        <LeftButton $left={"2%"} $top={"40%"} />
+      </div>
     </RecommededArticlesContainer>
   );
 };
@@ -460,29 +453,6 @@ const Item = styled.li`
   &:hover strong {
     text-decoration: underline;
   }
-`;
-
-const ArrowBtn = styled(Button)<{
-  $left?: string;
-  $right?: string;
-  hidden?: boolean;
-}>`
-  position: absolute;
-  top: 48%;
-  ${(props) =>
-    props.$left === "left"
-      ? css`
-          left: 2%;
-        `
-      : css`
-          right: 2%;
-        `};
-  font-size: 32px;
-  background-color: #ffffff40;
-  border: 1px solid #000;
-  color: #333;
-  z-index: 5;
-  display: ${(props) => (props.hidden ? "none" : "inline")};
 `;
 
 // const [list, setList] = useState([]);
