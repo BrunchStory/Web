@@ -76,7 +76,7 @@ const SideBar = ({
           브런치스토리 시작하기
         </Button>
       </Profile>
-      <ServiceMenu $isLaptop={isLaptop}>
+      <ServiceMenu isLaptop={isLaptop}>
         <ul>
           {wordList.map((v, idx) => (
             <MenuWord
@@ -88,7 +88,7 @@ const SideBar = ({
             </MenuWord>
           ))}
         </ul>
-        <SideSetting $isLaptop={isLaptop}>
+        <SideSetting isLaptop={isLaptop}>
           <MenuSideBanner>
             <Img
               src={
@@ -160,9 +160,9 @@ const LogoService = styled.div`
   width: 49px;
 `;
 
-const ServiceMenu = styled.div<{ $isLaptop: boolean }>`
+const ServiceMenu = styled.div<{ isLaptop: boolean }>`
   width: 100%;
-  height: ${(props) => (props.$isLaptop ? "498px" : "427px")};
+  height: ${(props) => (props.isLaptop ? "498px" : "427px")};
   overflow-y: auto;
   padding-top: 28px;
   color: #333;
@@ -212,8 +212,8 @@ const MenuWord = styled.li<{ selected: boolean }>`
   }
 `;
 
-const SideSetting = styled.div<{ $isLaptop: boolean }>`
-  position: ${(props) => (props.$isLaptop ? "inherit" : "absolute")};
+const SideSetting = styled.div<{ isLaptop: boolean }>`
+  position: ${(props) => (props.isLaptop ? "inherit" : "absolute")};
   bottom: 0;
   width: 100%;
   height: 139px;
