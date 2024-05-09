@@ -328,10 +328,10 @@ const InfinitePagination = () => {
       <Title>RECOMMENDED ARTICLES</Title>
       <SubTitle>브런치의 다양한 글을 만나보세요.</SubTitle>
       <ListSlideContainer>
-        <ListSlide move={moveSlide} len={FAKE_DATA.list.length}>
+        <ListSlide $move={moveSlide}>
           {FAKE_DATA.list.map((v, idx) => (
-            <Link to={"#"} style={{ padding: "0 10px" }}>
-              <Item key={idx}>
+            <Link to={"#"} key={idx} style={{ padding: "0 10px" }}>
+              <Item>
                 {v.imgUrl && (
                   <div>
                     <Img
@@ -350,7 +350,7 @@ const InfinitePagination = () => {
         </ListSlide>
       </ListSlideContainer>
       <ArrowBtn
-        right={"right"}
+        $right={"right"}
         onClick={() => onNext("right")}
         width={100}
         height={101}
@@ -360,7 +360,7 @@ const InfinitePagination = () => {
         →
       </ArrowBtn>
       <ArrowBtn
-        left={"left"}
+        $left={"left"}
         onClick={() => onNext("left")}
         width={100}
         height={101}
@@ -401,14 +401,14 @@ const ListSlideContainer = styled.div`
   height: 781px;
 `;
 
-const ListSlide = styled.ul<{ len: number; move: number }>`
+const ListSlide = styled.ul<{ $move: number }>`
   list-style-type: none;
   overflow: hidden;
   display: flex;
   width: 7800px;
   height: 781px;
   padding-bottom: 180px;
-  transform: ${(props) => `translateX(${props.move}px)`};
+  transform: ${(props) => `translateX(${props.$move}px)`};
   transition: transform 0.5s ease;
 `;
 const Item = styled.li`
@@ -463,14 +463,14 @@ const Item = styled.li`
 `;
 
 const ArrowBtn = styled(Button)<{
-  left?: string;
-  right?: string;
+  $left?: string;
+  $right?: string;
   hidden?: boolean;
 }>`
   position: absolute;
   top: 48%;
   ${(props) =>
-    props.left === "left"
+    props.$left === "left"
       ? css`
           left: 2%;
         `

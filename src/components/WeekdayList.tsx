@@ -45,7 +45,7 @@ const WeekdayList = () => {
               to={`/#${weekEn[v]}/#${sortedEn[selectSorted]}`}
               key={idx}
               onClick={() => onClickDay(idx)}
-              isSelected={day === v}
+              $isSelected={day === v}
             >
               {v}
             </Week>
@@ -56,7 +56,7 @@ const WeekdayList = () => {
         {sorted.map((v, idx) => (
           <LatestLikes
             to={`/#${weekEn[day]}/#${sortedEn[v]}`}
-            isSelected={v === selectSorted}
+            $isSelected={v === selectSorted}
             onClick={() => onClickSorted(idx)}
             key={idx}
           >
@@ -116,8 +116,8 @@ const SelectWeek = styled.ul`
   margin: 0;
 `;
 
-const Week = styled(Link)<{ isSelected: boolean }>`
-  color: ${(props) => (props.isSelected ? "#111" : "#959595")};
+const Week = styled(Link)<{ $isSelected: boolean }>`
+  color: ${(props) => (props.$isSelected ? "#111" : "#959595")};
   font-size: 14px;
   padding: 0 14px 12px;
   cursor: pointer;
@@ -132,7 +132,7 @@ const Week = styled(Link)<{ isSelected: boolean }>`
     left: 0;
     bottom: -1px;
     width: 100%;
-    border-bottom: ${(props) => props.isSelected && "1px solid #00c6be"};
+    border-bottom: ${(props) => props.$isSelected && "1px solid #00c6be"};
   }
 `;
 
@@ -144,9 +144,9 @@ const LatestLikesContainer = styled.div`
   padding: 30px 25px 20px;
 `;
 
-const LatestLikes = styled(Link)<{ isSelected: boolean }>`
+const LatestLikes = styled(Link)<{ $isSelected: boolean }>`
   font-size: 13px;
-  color: ${(props) => (props.isSelected ? "#333" : "#959595")};
+  color: ${(props) => (props.$isSelected ? "#333" : "#959595")};
   padding: 0 0 0 12px;
   cursor: pointer;
   position: relative;
@@ -168,7 +168,7 @@ const LatestLikes = styled(Link)<{ isSelected: boolean }>`
     border-radius: 50%;
     height: 4px;
     margin: -2px 4px 0 -8px;
-    background-color: ${(props) => props.isSelected && "#00c6be"};
+    background-color: ${(props) => props.$isSelected && "#00c6be"};
   }
 `;
 
