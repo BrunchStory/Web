@@ -329,10 +329,10 @@ const InfinitePagination = () => {
       <Title>RECOMMENDED ARTICLES</Title>
       <SubTitle>브런치의 다양한 글을 만나보세요.</SubTitle>
       <ListSlideContainer>
-        <ListSlide move={moveSlide} len={FAKE_DATA.list.length}>
+        <ListSlide $move={moveSlide}>
           {FAKE_DATA.list.map((v, idx) => (
-            <Link to={"#"} style={{ padding: "0 10px" }}>
-              <Item key={idx}>
+            <Link key={idx} to={"#"} style={{ padding: "0 10px" }}>
+              <Item>
                 {v.imgUrl && (
                   <div>
                     <Img
@@ -375,17 +375,33 @@ const RecommededArticlesContainer = styled.div`
 `;
 
 const Title = styled.h3`
+  width: 380px;
+  height: 13px;
+  margin-top: 152px;
+  background-position: 0 -225px;
+  background-image: url(https://t1.daumcdn.net/brunch9/static/images/pcrtn/txt_brunch_v6_221227.png);
+  background-size: 380px 640px;
+  display: block;
+  overflow: hidden;
   margin: 17px auto 0;
-  letter-spacing: 10px;
+  background: url(//t1.daumcdn.net/brunch-1/static/images/pc/txt_brunch_v6_221227.png)
+    no-repeat 0 0;
+  text-indent: -9999px;
 `;
 
 const SubTitle = styled.p`
-  color: gray;
-  width: 100%;
+  width: 162px;
   height: 11px;
-  margin: 0 auto;
-  font-size: 12px;
-  margin: 17px auto 38px;
+  margin-bottom: 47px;
+  background-position: 0 -75px;
+  background-image: url(//t1.daumcdn.net/brunch9/static/images/pcrtn/txt_brunch_v6_221227.png);
+  background-size: 380px 640px;
+  display: block;
+  overflow: hidden;
+  margin: 17px auto 0;
+  background: url(//t1.daumcdn.net/brunch-1/static/images/pc/txt_brunch_v6_221227.png)
+    no-repeat 0 0;
+  text-indent: -9999px;
 `;
 
 const ListSlideContainer = styled.div`
@@ -394,14 +410,14 @@ const ListSlideContainer = styled.div`
   height: 781px;
 `;
 
-const ListSlide = styled.ul<{ len: number; move: number }>`
+const ListSlide = styled.ul<{ $move: number }>`
   list-style-type: none;
   overflow: hidden;
   display: flex;
   width: 7800px;
   height: 781px;
   padding-bottom: 180px;
-  transform: ${(props) => `translateX(${props.move}px)`};
+  transform: ${(props) => `translateX(${props.$move}px)`};
   transition: transform 0.5s ease;
 `;
 const Item = styled.li`
