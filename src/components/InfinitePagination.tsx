@@ -327,7 +327,9 @@ const InfinitePagination = () => {
   return (
     <RecommededArticlesContainer>
       <Title>RECOMMENDED ARTICLES</Title>
-      <SubTitle>브런치의 다양한 글을 만나보세요.</SubTitle>
+      <p style={{ width: "960px", margin: "0 auto" }}>
+        <SubTitle>갓 구워낸 따끈따끈한 추천글을 만나보세요</SubTitle>
+      </p>
       <ListSlideContainer>
         <ListSlide $move={moveSlide}>
           {FAKE_DATA.list.map((v, idx) => (
@@ -384,24 +386,20 @@ const Title = styled.h3`
   display: block;
   overflow: hidden;
   margin: 17px auto 0;
-  background: url(//t1.daumcdn.net/brunch-1/static/images/pc/txt_brunch_v6_221227.png)
-    no-repeat 0 0;
   text-indent: -9999px;
 `;
 
-const SubTitle = styled.p`
+const SubTitle = styled.span`
   width: 162px;
   height: 11px;
-  margin-bottom: 47px;
   background-position: 0 -75px;
   background-image: url(//t1.daumcdn.net/brunch9/static/images/pcrtn/txt_brunch_v6_221227.png);
   background-size: 380px 640px;
   display: block;
   overflow: hidden;
   margin: 17px auto 0;
-  background: url(//t1.daumcdn.net/brunch-1/static/images/pc/txt_brunch_v6_221227.png)
-    no-repeat 0 0;
   text-indent: -9999px;
+  margin-bottom: 47px;
 `;
 
 const ListSlideContainer = styled.div`
