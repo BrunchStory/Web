@@ -313,7 +313,7 @@ interface ProfileProps {
 }
 
 interface ButtonProps {
-  fontSize: string;
+  $fontSize: string;
   $padding: string;
   $isActive?: boolean;
 }
@@ -343,7 +343,7 @@ const Writers = () => {
         {fakeDataList.category.map((category, buttonId) => (
           <li key={category.id}>
             <Button
-              fontSize="15px"
+              $fontSize="15px"
               $padding="7px 16px 6px"
               $isActive={activeButton === buttonId}
               onClick={() => handleCategoryClick(buttonId)}
@@ -371,10 +371,10 @@ const Writers = () => {
               <Description>{data.profile_desc}</Description>
               {/* 한 프로필 당 카테고리 리스트 */}
               <UL>
-                {data.profile_categories.map((category) => (
+                {data.profile_categories.slice(0, 2).map((category) => (
                   <li key={category.id}>
                     <Button
-                      fontSize="12px"
+                      $fontSize="12px"
                       $padding="4px 10px"
                       $isActive={false}
                       onClick={() => openWindow(category.name)}
@@ -383,6 +383,9 @@ const Writers = () => {
                     </Button>
                   </li>
                 ))}
+                <li>
+                  <MoreButton>더보기</MoreButton>
+                </li>
               </UL>
             </WriterItem>
           ))}
@@ -525,10 +528,10 @@ const UL = styled.ul`
 
 const Button = styled.button<ButtonProps>`
   font-family: "Noto Sans Light", sans-serif;
-  font-size: ${(props) => props.fontSize};
+  font-size: ${(props) => props.$fontSize};
   letter-spacing: -1px;
   line-height: 18px;
-  color: #959595;
+  color: ${(props) => (props.$isActive ? "#00c6be" : "#959595")};
 
   border: ${(props) => (props.$isActive ? "#00c6be" : "#ddd")} 1px solid;
 
@@ -538,6 +541,23 @@ const Button = styled.button<ButtonProps>`
 
   /*padding: 4px 10px;*/
   padding: ${(props) => props.$padding};
+
+  cursor: pointer;
+
+  display: block;
+`;
+
+const MoreButton = styled.button`
+  text-indent: -9999px;
+
+  width: 35px;
+  height: 28px;
+
+  background: url("https://t1.daumcdn.net/brunch9/static/images/pc/ico_brunch_v9_230901.png")
+    no-repeat;
+  background-position: -280px -70px;
+
+  border: none;
 
   cursor: pointer;
 
