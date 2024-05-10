@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Button, Img } from "../styles/global";
-import styled, { css } from "styled-components";
+import { Img } from "../styles/global";
+import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { RightButton, LeftButton } from "./ScrollButton";
 
 interface DataItem {
   imgUrl?: string;
@@ -326,12 +327,14 @@ const InfinitePagination = () => {
   return (
     <RecommededArticlesContainer>
       <Title>RECOMMENDED ARTICLES</Title>
-      <SubTitle>브런치의 다양한 글을 만나보세요.</SubTitle>
+      <p style={{ width: "960px", margin: "0 auto" }}>
+        <SubTitle>갓 구워낸 따끈따끈한 추천글을 만나보세요</SubTitle>
+      </p>
       <ListSlideContainer>
-        <ListSlide move={moveSlide} len={FAKE_DATA.list.length}>
+        <ListSlide $move={moveSlide}>
           {FAKE_DATA.list.map((v, idx) => (
-            <Link to={"#"} style={{ padding: "0 10px" }}>
-              <Item key={idx}>
+            <Link key={idx} to={"#"} style={{ padding: "0 10px" }}>
+              <Item>
                 {v.imgUrl && (
                   <div>
                     <Img
@@ -349,26 +352,18 @@ const InfinitePagination = () => {
           ))}
         </ListSlide>
       </ListSlideContainer>
-      <ArrowBtn
-        right={"right"}
+      <div
         onClick={() => onNext("right")}
-        width={100}
-        height={101}
-        radius={64}
-        hidden={enableBtn.right}
+        style={{ visibility: enableBtn.right ? "hidden" : "visible" }}
       >
-        →
-      </ArrowBtn>
-      <ArrowBtn
-        left={"left"}
+        <RightButton $right={"2%"} $top={"40%"} />
+      </div>
+      <div
         onClick={() => onNext("left")}
-        width={100}
-        height={101}
-        radius={64}
-        hidden={enableBtn.left}
+        style={{ visibility: enableBtn.left ? "hidden" : "visible" }}
       >
-        ←
-      </ArrowBtn>
+        <LeftButton $left={"2%"} $top={"40%"} />
+      </div>
     </RecommededArticlesContainer>
   );
 };
@@ -382,17 +377,29 @@ const RecommededArticlesContainer = styled.div`
 `;
 
 const Title = styled.h3`
+  width: 380px;
+  height: 13px;
+  margin-top: 152px;
+  background-position: 0 -225px;
+  background-image: url(https://t1.daumcdn.net/brunch9/static/images/pcrtn/txt_brunch_v6_221227.png);
+  background-size: 380px 640px;
+  display: block;
+  overflow: hidden;
   margin: 17px auto 0;
-  letter-spacing: 10px;
+  text-indent: -9999px;
 `;
 
-const SubTitle = styled.p`
-  color: gray;
-  width: 100%;
+const SubTitle = styled.span`
+  width: 162px;
   height: 11px;
-  margin: 0 auto;
-  font-size: 12px;
-  margin: 17px auto 38px;
+  background-position: 0 -75px;
+  background-image: url(//t1.daumcdn.net/brunch9/static/images/pcrtn/txt_brunch_v6_221227.png);
+  background-size: 380px 640px;
+  display: block;
+  overflow: hidden;
+  margin: 17px auto 0;
+  text-indent: -9999px;
+  margin-bottom: 47px;
 `;
 
 const ListSlideContainer = styled.div`
@@ -401,14 +408,14 @@ const ListSlideContainer = styled.div`
   height: 781px;
 `;
 
-const ListSlide = styled.ul<{ len: number; move: number }>`
+const ListSlide = styled.ul<{ $move: number }>`
   list-style-type: none;
   overflow: hidden;
   display: flex;
   width: 7800px;
   height: 781px;
   padding-bottom: 180px;
-  transform: ${(props) => `translateX(${props.move}px)`};
+  transform: ${(props) => `translateX(${props.$move}px)`};
   transition: transform 0.5s ease;
 `;
 const Item = styled.li`
@@ -460,29 +467,6 @@ const Item = styled.li`
   &:hover strong {
     text-decoration: underline;
   }
-`;
-
-const ArrowBtn = styled(Button)<{
-  left?: string;
-  right?: string;
-  hidden?: boolean;
-}>`
-  position: absolute;
-  top: 48%;
-  ${(props) =>
-    props.left === "left"
-      ? css`
-          left: 2%;
-        `
-      : css`
-          right: 2%;
-        `};
-  font-size: 32px;
-  background-color: #ffffff40;
-  border: 1px solid #000;
-  color: #333;
-  z-index: 5;
-  display: ${(props) => (props.hidden ? "none" : "inline")};
 `;
 
 // const [list, setList] = useState([]);

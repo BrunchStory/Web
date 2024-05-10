@@ -69,7 +69,6 @@ const Home = () => {
       }}
     >
       <Header homeProps={homeProps} />
-      <WhiteSpace height={204} />
       <EditorPick />
       <Keyword />
       <WhiteSpace height={147} />

@@ -1,8 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import { faBars, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { Button } from "../styles/global";
 
@@ -33,19 +30,20 @@ const NavHeader = ({ headerprops }: Props) => {
   return (
     <NavMenu $show={show?.toString()} $scrolly={scrollY}>
       <MenuContainer>
-        <FontAwesomeIcon
-          size={"2x"}
-          icon={faBars as IconProp}
-          style={{ marginRight: "14px" }}
+        <MenuBtn
+          width={27}
+          height={20}
           onClick={() => {
             setIsOpen(true);
             setClosed?.(true);
           }}
-        />
+        >
+          메뉴
+        </MenuBtn>
 
-        <Logo to={"/"}>
-          brunch <span>story</span>
-        </Logo>
+        <h3>
+          <Logo to={"/"}>brunch</Logo>
+        </h3>
       </MenuContainer>
       <MenuContainer>
         {search ? (
@@ -57,12 +55,9 @@ const NavHeader = ({ headerprops }: Props) => {
             <StartBtn width={66} height={30} onClick={isModalOpen}>
               시작하기
             </StartBtn>
-            <FontAwesomeIcon
-              size={"1x"}
-              icon={faMagnifyingGlass as IconProp}
-              style={{ marginLeft: "14px" }}
-              onClick={() => setIsSearch(true)}
-            />
+            <SearchBtn width={22} height={22} onClick={() => setIsSearch(true)}>
+              검색
+            </SearchBtn>
           </>
         )}
       </MenuContainer>
@@ -96,14 +91,24 @@ const MenuContainer = styled.div`
   align-items: center;
 `;
 
-const Logo = styled(Link)`
-  color: black;
-  font-size: 28px;
-  color: #333;
+const MenuBtn = styled(Button)`
+  background-image: url(//t1.daumcdn.net/brunch/static/img/help/pc/ico_view_cover.v4_rtn_230130.png);
+  background-size: 240px 300px;
+  margin-right: 14px;
+  text-indent: -9999px;
+`;
 
-  span {
-    text-decoration: overline;
-  }
+const Logo = styled(Link)`
+  background-image: url(//t1.daumcdn.net/brunch9/static/images/pcrtn/logo_brunch_v1_221221.png);
+  background-size: 240px 160px;
+  width: 120px;
+  background-position: 0 -80px;
+  display: block;
+  height: 22px;
+  margin-top: -1px;
+  line-height: 0;
+  overflow: hidden;
+  text-indent: -9999px;
 `;
 
 const StartBtn = styled(Button)`
@@ -115,4 +120,15 @@ const StartBtn = styled(Button)`
   text-align: center;
   cursor: pointer;
   margin-top: -5px;
+`;
+
+const SearchBtn = styled(Button)`
+  margin: 0 0 0 16px;
+  background-position: -30px 0;
+  display: inline-block;
+  background-image: url(//t1.daumcdn.net/brunch/static/img/help/pc/ico_view_cover.v4_rtn_230130.png);
+  background-size: 240px 300px;
+  line-height: 0;
+  overflow: hidden;
+  text-indent: -9999px;
 `;

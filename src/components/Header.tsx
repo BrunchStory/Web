@@ -46,6 +46,15 @@ const Header = ({ homeProps }: Props) => {
   const [closed, setClosed] = useState<boolean>(true);
   const [countScrollY, setCountScrollY] = useState<number[]>([]);
   const [show, setShow] = useState(false);
+  const [changeNum, setChangeNum] = useState(0);
+
+  useEffect(() => {
+    const initTime = setInterval(() => {
+      changeNum === 0 ? setChangeNum(1) : setChangeNum(0);
+    }, 10000);
+
+    return () => clearInterval(initTime);
+  }, [changeNum]);
 
   useEffect(() => {
     const updateScrollY = () => {
@@ -140,7 +149,41 @@ const Header = ({ homeProps }: Props) => {
         </ImgContainer>
       </BannerContainer>
       <NavHeader headerprops={headerProps} />
-
+      <IntroBrunch>
+        <h3>
+          작품이 되는 이야기, 브런치스토리
+          <span></span>
+        </h3>
+        <p>
+          <span>
+            브런치스토리에 담긴 아름다운 작품을 감상해 보세요.
+            <br />
+          </span>
+          <span>
+            그리고 다시 꺼내 보세요.
+            <br />
+          </span>
+          <span>
+            <span className="txt_brunch">
+              서랍 속 간직하고 있는 글과 감성을.
+            </span>
+          </span>
+        </p>
+        <ul>
+          <li style={{ display: changeNum ? "none" : "" }}>
+            <Link to={"#"}>
+              <span>‘응원하기’ 정식 오픈 소식 및 이용 안내</span>
+            </Link>
+            <span>notice</span>
+          </li>
+          <li style={{ display: changeNum ? "" : "none" }}>
+            <Link to={"#"}>
+              <span>작품을 만드는 새로운 방법, 연재 브런치북 이용 안내</span>
+            </Link>
+            <span>update</span>
+          </li>
+        </ul>
+      </IntroBrunch>
       <SideBar
         isOpen={isOpen}
         wordList={wordList}
@@ -241,4 +284,74 @@ const CancelBtn = styled.button`
   font-size: 3.65rem;
   font-weight: 10;
   z-index: 3;
+`;
+
+const IntroBrunch = styled.div`
+  width: 960px;
+  margin: 0 auto;
+
+  h3 {
+    margin-top: 0;
+    color: #1a1a1a;
+    font-size: 40px;
+    font-weight: 400;
+    letter-spacing: -0.05em;
+    text-align: left;
+
+    span {
+      width: 40px;
+      height: 40px;
+      margin: 1px 6px 0 5px;
+      background-position: -80px -230px;
+      background-image: url(//t1.daumcdn.net/brunch9/static/images/pc/ico_brunch_v9_230823_rtn.png);
+      background-size: 400px 300px;
+      overflow: hidden;
+      text-indent: -9999px;
+      display: inline-block;
+      line-height: 0;
+      vertical-align: top;
+    }
+  }
+
+  p {
+    padding-bottom: 16px;
+    margin-top: -3px;
+    color: #cacaca;
+    font-size: 32px;
+    letter-spacing: -0.05em;
+    line-height: 46px;
+    width: 960px;
+    margin: 0 auto;
+  }
+
+  .txt_brunch {
+    display: inline;
+    background: none;
+    color: #dedede;
+    overflow: hidden;
+    margin: 17px auto 0;
+  }
+
+  ul {
+    position: relative;
+    overflow: hidden;
+    height: 18px;
+    width: 970px;
+
+    li {
+      a {
+        span {
+          padding-left: 7px;
+          color: #959595;
+        }
+      }
+      span {
+        padding-top: 2px;
+        color: #00c6be;
+        float: right;
+        font-family: Georgia, sans-serif;
+        font-size: 11px;
+      }
+    }
+  }
 `;

@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
 import { ListProps } from "./WeekWriteList";
-import { Img, fadeIn } from "../styles/global";
+import { Img } from "../styles/global";
 
 interface Props {
   filterData: ListProps[];
@@ -26,10 +26,21 @@ const WriteItems = ({ filterData }: Props) => {
           <WriteItemContainer key={idx}>
             <WriteItem>
               <span>{title}</span>
-              <strong>{text}</strong>
+              <span>
+                <strong>{text}</strong>
+              </span>
               <span>{writer}</span>
             </WriteItem>
-            {img && <Img width={80} height={80} src={img} alt="사진" />}
+            <div
+              style={{
+                width: "80px",
+                height: "80px",
+                marginLeft: "20px",
+              }}
+            >
+              {" "}
+              {img && <Img width={80} height={80} src={img} alt="사진" />}
+            </div>
           </WriteItemContainer>
         );
       })}
@@ -75,10 +86,25 @@ const WriteItem = styled.div`
     margin-right: 4px;
   }
 
-  strong {
-    color: #111;
-    font-size: 16px;
-    line-height: 26px;
-    font-weight: normal;
+  span:nth-child(2) {
+    display: flex;
+    align-items: center;
+    padding-right: 11px;
+    width: 100%;
+
+    strong {
+      display: -webkit-box;
+      overflow: hidden;
+      max-width: 92%;
+      max-height: 52px;
+      -webkit-box-orient: vertical;
+      color: #111;
+      font-size: 16px;
+      font-weight: 100;
+      -webkit-line-clamp: 1;
+      line-height: 26px;
+      text-overflow: ellipsis;
+      word-break: break-all;
+    }
   }
 `;
