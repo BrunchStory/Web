@@ -25,8 +25,6 @@ interface PropsType {
   setWordList: React.Dispatch<
     React.SetStateAction<{ id: number; text: string; selected: boolean }[]>
   >;
-  scrollY: number;
-  setScrollY: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const Header = ({ homeProps }: Props) => {
@@ -39,12 +37,10 @@ const Header = ({ homeProps }: Props) => {
     isModalOpen,
     wordList,
     setWordList,
-    scrollY,
-    setScrollY,
   } = homeProps;
 
   const [closed, setClosed] = useState<boolean>(true);
-  const [countScrollY, setCountScrollY] = useState<number[]>([]);
+  // const [countScrollY, setCountScrollY] = useState<number[]>([]);
   const [show, setShow] = useState(false);
   const [changeNum, setChangeNum] = useState(0);
 
@@ -57,49 +53,43 @@ const Header = ({ homeProps }: Props) => {
   }, [changeNum]);
 
   useEffect(() => {
-    const updateScrollY = () => {
-      if (closed === false && scrollY >= 715) {
-        setScrollY(window.pageYOffset);
-        setShow(true);
-      } else if (scrollY >= 292 && closed) {
-        setScrollY(window.pageYOffset);
-        setShow(true);
-      } else {
-        setScrollY(window.pageYOffset);
-        setShow(false);
+    const wheelHandler = (e: any) => {
+      if (window.scrollY === 0 && e.deltaY < 0) {
+        // 맨 상단이면서 마우스 휠을 올렸을 때
+        setClosed(false); // 열려라
       }
     };
 
-    if (scrollY >= 800) {
-      setClosed(true);
-    }
-
-    window.addEventListener("scroll", updateScrollY);
-
-    return () => window.removeEventListener("scroll", updateScrollY);
-  }, [scrollY]);
+    window.addEventListener("wheel", wheelHandler);
+    return () => {
+      window.removeEventListener("wheel", wheelHandler);
+    };
+  }, []);
 
   useEffect(() => {
-    if (scrollY === 0) {
-      countScrollY.push(300);
-    }
+    const scrollHandler = () => {
+      if (window.scrollY >= 600) {
+        // 스크롤을 600이상 내렸다면
+        setClosed(true); // 닫혀라
+      }
+    };
 
-    setCountScrollY([...countScrollY]);
+    window.addEventListener("scroll", scrollHandler);
 
-    if (countScrollY.length >= 3) {
-      setClosed(false);
-      setCountScrollY([]);
-    }
-  }, [scrollY]);
+    return () => {
+      window.removeEventListener("scroll", scrollHandler);
+    };
+  }, [closed]);
 
   const headerProps = {
     show,
-    scrollY,
     setIsOpen,
     setClosed,
     isModalOpen,
     setIsSearch,
     search: false,
+    closed,
+    setShow,
   };
 
   return (
