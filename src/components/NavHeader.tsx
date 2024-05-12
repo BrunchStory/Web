@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Button } from "../styles/global";
 
 interface PropsType {
   show: boolean | string;
-  scrollY: number;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setClosed?: React.Dispatch<React.SetStateAction<boolean>>;
   isModalOpen: () => void;
   setIsSearch: React.Dispatch<React.SetStateAction<boolean>>;
   search: boolean;
+  closed?: boolean;
+  setShow?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface Props {
@@ -20,15 +21,31 @@ interface Props {
 const NavHeader = ({ headerprops }: Props) => {
   const {
     show,
-    scrollY,
     setIsOpen,
     setClosed,
     isModalOpen,
     setIsSearch,
     search,
+    closed,
+    setShow,
   } = headerprops;
+
+  useEffect(() => {
+    const scrollEvent = () => {
+      if (closed && window.scrollY >= 345) {
+        setShow?.(true);
+      } else {
+        setShow?.(false);
+      }
+    };
+
+    window.addEventListener("scroll", scrollEvent);
+
+    return () => window.removeEventListener("scroll", scrollEvent);
+  }, [closed, setShow]);
+
   return (
-    <NavMenu $show={show?.toString()} $scrolly={scrollY}>
+    <NavMenu $show={show?.toString()} $scrolly={window.scrollY}>
       <MenuContainer>
         <MenuBtn
           width={27}
@@ -78,12 +95,13 @@ const NavMenu = styled.div<{ $show: string; $scrolly: number }>`
   background: hsla(0, 0%, 100%, 0.9);
   padding: 0 30px;
   opacity: ${(props) =>
-    props.$show === "true" ? 1 : props.$scrolly < 424 ? 1 : 0};
+    props.$show === "true" ? 1 : props.$scrolly < 384 ? 1 : 0};
   top: 0;
   transition: opacity 0.3s ease;
   border-bottom: ${(props) =>
     props.$show === "true" ? "1px solid #ddd" : "none"};
   float: left;
+  padding-top: ${(props) => (props.$show === "false" ? "20px" : "0")};
 `;
 
 const MenuContainer = styled.div`

@@ -42,13 +42,11 @@ const Home = () => {
     isOpen,
     wordList,
     openModal,
-    scrollY,
     setIsSearch,
     setIsOpen,
     isModalOpen,
     setWordList,
     setOpenModal,
-    setScrollY,
   };
 
   const searchProps = {

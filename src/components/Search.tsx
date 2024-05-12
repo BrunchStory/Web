@@ -160,7 +160,6 @@ const Search = ({ searchProps }: Props) => {
       <NavHeader
         headerprops={{
           show: false,
-          scrollY: 0,
           search: true,
           setIsSearch,
           setIsOpen,
