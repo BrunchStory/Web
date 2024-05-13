@@ -352,17 +352,15 @@ const InfinitePagination = () => {
           ))}
         </ListSlide>
       </ListSlideContainer>
-      <div
-        onClick={() => onNext("right")}
-        style={{ visibility: enableBtn.right ? "hidden" : "visible" }}
-      >
-        <RightButton $right={"2%"} $top={"40%"} />
+      <div style={{ visibility: enableBtn.right ? "hidden" : "visible" }}>
+        <RightButton
+          onClick={() => onNext("right")}
+          $right={"2%"}
+          $top={"40%"}
+        />
       </div>
-      <div
-        onClick={() => onNext("left")}
-        style={{ visibility: enableBtn.left ? "hidden" : "visible" }}
-      >
-        <LeftButton $left={"2%"} $top={"40%"} />
+      <div style={{ visibility: enableBtn.left ? "hidden" : "visible" }}>
+        <LeftButton onClick={() => onNext("left")} $left={"2%"} $top={"40%"} />
       </div>
     </RecommededArticlesContainer>
   );
