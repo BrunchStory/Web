@@ -116,7 +116,7 @@ const SdieBarContainer = styled.div<{
   $width: number | string;
   $isOpen: string;
 }>`
-  z-index: 90;
+  z-index: 10000;
   background-color: #fff;
   border-right: 1px solid #ddd;
   height: 100%;
