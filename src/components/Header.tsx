@@ -40,7 +40,6 @@ const Header = ({ homeProps }: Props) => {
   } = homeProps;
 
   const [closed, setClosed] = useState<boolean>(true);
-  // const [countScrollY, setCountScrollY] = useState<number[]>([]);
   const [show, setShow] = useState(false);
   const [changeNum, setChangeNum] = useState(0);
 
@@ -129,12 +128,14 @@ const Header = ({ homeProps }: Props) => {
             </Link>
           </ImgItem>
 
-          <CancelBtn
-            onClick={() => {
-              setClosed(true);
-            }}
-          >
-            X
+          <CancelBtn>
+            <button
+              onClick={() => {
+                setClosed(true);
+              }}
+            >
+              닫기
+            </button>
           </CancelBtn>
         </ImgContainer>
       </BannerContainer>
@@ -263,17 +264,29 @@ const ImgItem = styled.li`
   }
 `;
 
-const CancelBtn = styled.button`
+const CancelBtn = styled.div`
   position: absolute;
-  top: 45%;
-  right: 10%;
-  cursor: pointer;
-  background-color: transparent;
-  color: #fff;
-  border: none;
-  font-size: 3.65rem;
-  font-weight: 10;
-  z-index: 3;
+  z-index: 4;
+  bottom: 50%;
+  left: 50%;
+  width: 60px;
+  height: 60px;
+  margin: 0 0 -30px 570px;
+
+  button {
+    overflow: hidden;
+    background: url(https://t1.daumcdn.net/brunch9/static/images/pc/ico_brunch_v9_230901.png)
+      no-repeat;
+    text-indent: -9999px;
+    display: inline-block;
+    line-height: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    background-position: -282px 0;
+    vertical-align: top;
+    border-radius: 0;
+  }
 `;
 
 const IntroBrunch = styled.div`
@@ -327,6 +340,7 @@ const IntroBrunch = styled.div`
     overflow: hidden;
     height: 18px;
     width: 970px;
+    margin-bottom: 20px;
 
     li {
       a {
