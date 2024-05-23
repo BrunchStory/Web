@@ -159,8 +159,9 @@ const Search = ({ searchProps }: Props) => {
     <SearchContainer>
       <NavHeader
         headerprops={{
-          show: false,
+          show: true,
           search: true,
+          home: false,
           setIsSearch,
           setIsOpen,
           isModalOpen,

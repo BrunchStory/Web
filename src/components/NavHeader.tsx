@@ -5,13 +5,15 @@ import { Button } from "../styles/global";
 
 interface PropsType {
   show: boolean | string;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   setClosed?: React.Dispatch<React.SetStateAction<boolean>>;
-  isModalOpen: () => void;
-  setIsSearch: React.Dispatch<React.SetStateAction<boolean>>;
+  isModalOpen?: () => void;
+  setIsSearch?: React.Dispatch<React.SetStateAction<boolean>>;
   search: boolean;
   closed?: boolean;
   setShow?: React.Dispatch<React.SetStateAction<boolean>>;
+  onlySearch?: boolean;
+  home: boolean;
 }
 
 interface Props {
@@ -28,6 +30,8 @@ const NavHeader = ({ headerprops }: Props) => {
     search,
     closed,
     setShow,
+    onlySearch,
+    home,
   } = headerprops;
 
   useEffect(() => {
@@ -45,13 +49,17 @@ const NavHeader = ({ headerprops }: Props) => {
   }, [closed, setShow]);
 
   return (
-    <NavMenu $show={show?.toString()} $scrolly={window.scrollY}>
+    <NavMenu
+      $home={home?.toString()}
+      $show={show?.toString()}
+      $scrolly={window.scrollY}
+    >
       <MenuContainer>
         <MenuBtn
           width={27}
           height={20}
           onClick={() => {
-            setIsOpen(true);
+            setIsOpen?.(true);
             setClosed?.(true);
           }}
         >
@@ -64,15 +72,24 @@ const NavHeader = ({ headerprops }: Props) => {
       </MenuContainer>
       <MenuContainer>
         {search ? (
-          <div style={{ cursor: "pointer" }} onClick={() => setIsSearch(false)}>
+          <div
+            style={{ cursor: "pointer" }}
+            onClick={() => setIsSearch?.(false)}
+          >
             X
           </div>
         ) : (
           <>
-            <StartBtn width={66} height={30} onClick={isModalOpen}>
-              시작하기
-            </StartBtn>
-            <SearchBtn width={22} height={22} onClick={() => setIsSearch(true)}>
+            {!onlySearch && (
+              <StartBtn width={66} height={30} onClick={isModalOpen}>
+                시작하기
+              </StartBtn>
+            )}
+            <SearchBtn
+              width={22}
+              height={22}
+              onClick={() => setIsSearch?.(true)}
+            >
               검색
             </SearchBtn>
           </>
@@ -84,7 +101,7 @@ const NavHeader = ({ headerprops }: Props) => {
 
 export default NavHeader;
 
-const NavMenu = styled.div<{ $show: string; $scrolly: number }>`
+const NavMenu = styled.div<{ $show: string; $scrolly: number; $home: string }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -92,14 +109,17 @@ const NavMenu = styled.div<{ $show: string; $scrolly: number }>`
   width: 100%;
   height: 60px;
   z-index: 10;
-  background: hsla(0, 0%, 100%, 0.9);
+  background-color: ${(props) =>
+    props.$home === "true" ? "hsla(0, 0%, 100%, 0.9)" : "inherit"};
   padding: 0 30px;
   opacity: ${(props) =>
     props.$show === "true" ? 1 : props.$scrolly < 384 ? 1 : 0};
   top: 0;
   transition: opacity 0.3s ease;
   border-bottom: ${(props) =>
-    props.$show === "true" ? "1px solid #ddd" : "none"};
+    props.$show === "true" && props.$home === "true"
+      ? "1px solid #ddd"
+      : "none"};
   float: left;
   padding-top: ${(props) => (props.$show === "false" ? "20px" : "0")};
 `;

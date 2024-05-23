@@ -89,6 +89,7 @@ const Header = ({ homeProps }: Props) => {
     search: false,
     closed,
     setShow,
+    home: true,
   };
 
   return (
