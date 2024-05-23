@@ -22,21 +22,21 @@ const fakeData: FakeData = {
   list: [
     {
       imgUrl:
-        "https://cdn.pixabay.com/photo/2019/08/19/07/45/corgi-4415649_640.jpg",
+        "https://t1.daumcdn.net/brunch9/static/images/pc/pc-img-start-01.png",
       title: "브런치 작가로 데뷔하세요",
       text: "진솔한 에세이부터 업계 전문 지식까지,",
       text2: "당신의 이야기를 세상에 선보이세요.",
     },
     {
       imgUrl:
-        "https://cdn.pixabay.com/photo/2023/08/18/15/02/dog-8198719_640.jpg",
+        "https://t1.daumcdn.net/brunch9/static/images/pc/pc-img-start-02.png",
       title: "브런치스토리로 제안받는 새로운 기회",
       text: "다양한 프로젝트와 파트너를 통해",
       text2: "작가님의 작품이 책·강연 등으로 확장됩니다.",
     },
     {
       imgUrl:
-        "https://cdn.pixabay.com/photo/2017/09/25/13/12/puppy-2785074_640.jpg",
+        "https://t1.daumcdn.net/brunch9/static/images/pc/pc-img-start-03.png",
       title: "글로 만나는 작가의 경험",
       text: "작가를 구독하고, 새 글을 받아보세요.",
       text2: "당신에게 영감을 주는 작품을 추천합니다.",
@@ -123,6 +123,25 @@ const Modal = ({ setOpenModal }: Props) => {
   return (
     <Cotainer>
       <ModalContainer ref={outside}>
+        <div
+          style={{
+            left: "62px",
+            position: "absolute",
+            top: "83px",
+          }}
+        >
+          <span
+            style={{
+              backgroundPosition: "0 -820px",
+              display: "inline-block",
+              height: "44px",
+              width: "44px",
+              backgroundImage:
+                "url(//t1.daumcdn.net/brunch9/static/images/pcrtn/ico_brunch_v1_221221.png)",
+              backgroundSize: "200px 870px",
+            }}
+          ></span>
+        </div>
         <AutoImgContainer>
           <ImgContainer>
             {fakeData.list.map((v, idx) => (
@@ -156,9 +175,15 @@ const Modal = ({ setOpenModal }: Props) => {
               &lt;
             </Button>
             <StyledList>
-              <StyledListItem active={next === 0}></StyledListItem>
-              <StyledListItem active={next === -500}></StyledListItem>
-              <StyledListItem active={next === -1000}></StyledListItem>
+              <StyledListItem
+                $active={(next === 0).toString()}
+              ></StyledListItem>
+              <StyledListItem
+                $active={(next === -500).toString()}
+              ></StyledListItem>
+              <StyledListItem
+                $active={(next === -1000).toString()}
+              ></StyledListItem>
             </StyledList>
             <Button
               width={7.8}
@@ -178,18 +203,23 @@ const Modal = ({ setOpenModal }: Props) => {
                 width={406}
                 height={60}
                 radius={5}
-                bgc={"#ffe500"}
+                $bgc={"#ffe500"}
                 onClick={handleKaKaoLogin}
               >
-                <Img
-                  width={40}
-                  height={40}
+                <div
                   style={{
-                    position: "absolute",
-                    top: "10px",
-                    left: "100px",
+                    width: "20px",
+                    height: "20px",
+                    backgroundImage:
+                      'url("https://t1.daumcdn.net/brunch9/static/images/pcrtn/ico_brunch_v1_221221.png")',
+                    backgroundPosition: "-140px -570px",
+                    display: "inline-block",
+                    position: "relative",
+                    top: "-1px",
+                    left: "-5px",
+                    verticalAlign: "middle",
+                    backgroundSize: "200px 870px",
                   }}
-                  src="https://cdn-icons-png.flaticon.com/512/3984/3984330.png"
                 />
                 카카오 계정 로그인
               </Btn>
@@ -229,10 +259,18 @@ const Modal = ({ setOpenModal }: Props) => {
               border: "none",
               fontWeight: "lighter",
               cursor: "pointer",
+              display: "inline-block",
+              backgroundImage:
+                "url(//t1.daumcdn.net/brunch9/static/images/pcrtn/ico_brunch_v1_221221.png)",
+              backgroundSize: "200px 870px",
+              backgroundPosition: "-140px -760px",
+              textIndent: "-9999px",
+              height: "23px",
+              width: "23px",
             }}
             onClick={() => setOpenModal(false)}
           >
-            X
+            <span>x</span>
           </button>
         </LoginContainer>
       </ModalContainer>
@@ -248,7 +286,7 @@ const Cotainer = styled.div`
   width: 100%;
   top: 0;
   left: 0;
-  z-index: 100;
+  z-index: 99999;
   background-color: rgba(0, 0, 0, 0.3);
   display: flex;
   justify-content: center;
@@ -261,6 +299,7 @@ const ModalContainer = styled.div`
   overflow: hidden;
   border-radius: 16px;
   display: flex;
+  position: relative;
 `;
 
 const AutoImgContainer = styled.div`
@@ -317,12 +356,13 @@ const StyledList = styled.ul`
   width: 20%;
 `;
 
-const StyledListItem = styled.li<{ active: boolean }>`
+const StyledListItem = styled.li<{ $active: string }>`
   width: 8px;
   height: 8px;
   border: 1px solid gray;
   border-radius: 16px;
-  background-color: ${(props) => (props.active ? "gray" : "transparent")};
+  background-color: ${(props) =>
+    props.$active === "true" ? "gray" : "transparent"};
 `;
 
 const LoginContainer = styled.div`
@@ -363,8 +403,8 @@ const ForgetInfo = styled.div`
   }
 `;
 
-const Btn = styled(Button)<{ bgc?: string }>`
-  background-color: ${(props) => props.bgc || "#fff"};
+const Btn = styled(Button)<{ $bgc?: string }>`
+  background-color: ${(props) => props.$bgc || "#fff"};
   border: none;
   line-height: 61px;
   font-size: 16px;
