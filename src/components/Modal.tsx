@@ -110,6 +110,16 @@ const Modal = ({ setOpenModal }: Props) => {
     return () => window.removeEventListener("mousedown", onClickOutside);
   }, [setOpenModal]);
 
+  /** 카카오 로그인 */
+  const handleKaKaoLogin = () => {
+    const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
+    const REDIRECTED_URL = process.env.REACT_APP_KAKAO_REDIRECT_URL;
+
+    const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECTED_URL}&response_type=code`;
+
+    window.location.href = kakaoURL;
+  };
+
   return (
     <Cotainer>
       <ModalContainer ref={outside}>
@@ -189,7 +199,13 @@ const Modal = ({ setOpenModal }: Props) => {
           <LoginBtnContainer>
             <LoginKakao>
               <strong>브론치 스토리 시작하기</strong>
-              <Btn width={406} height={60} radius={5} $bgc={"#ffe500"}>
+              <Btn
+                width={406}
+                height={60}
+                radius={5}
+                $bgc={"#ffe500"}
+                onClick={handleKaKaoLogin}
+              >
                 <div
                   style={{
                     width: "20px",
