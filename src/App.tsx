@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import "./styles/global.css";
+import Apply from "./pages/Apply";
 import Oauth from "./components/Oauth";
 import ApplyGuide from "./components/ApplyGuide";
 
