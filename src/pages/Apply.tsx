@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import NavHeader from "../components/NavHeader";
 import styled from "styled-components";
 import { WriteFlow } from "../components/WriteFlow";
 
@@ -11,14 +10,6 @@ interface WriteState {
 }
 
 const Apply = () => {
-  const headerProps = {
-    show: true,
-    search: false,
-    closed: false,
-    onlySearch: true,
-    home: false,
-  };
-
   const [clickNext, setClickNext] = useState(0);
   const [check, setCheck] = useState(false);
   const inside = useRef<any>();
@@ -100,7 +91,6 @@ const Apply = () => {
 
   return (
     <ApplyContainer>
-      <NavHeader headerprops={headerProps} />
       <InfoFlow>
         <TxtMegaphone>
           브런치

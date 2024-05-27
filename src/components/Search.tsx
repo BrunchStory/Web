@@ -22,17 +22,6 @@ interface Props {
 
 interface PropsType {
   setIsSearch: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  isModalOpen: () => void;
-  isOpen: boolean;
-  wordList: {
-    id: number;
-    text: string;
-    selected: boolean;
-  }[];
-  setWordList: React.Dispatch<
-    React.SetStateAction<{ id: number; text: string; selected: boolean }[]>
-  >;
 }
 
 const RANDOM_TEXT = ["글쓰기", "사진", "자기계발"];
@@ -147,8 +136,7 @@ interface Data {
 }
 
 const Search = ({ searchProps }: Props) => {
-  const { setIsSearch, setIsOpen, isModalOpen, isOpen, wordList, setWordList } =
-    searchProps;
+  const { setIsSearch } = searchProps;
   const [searchText, setSearchText] = useState("");
 
   const random = Math.trunc(Math.random() * RANDOM_TEXT.length);
@@ -159,14 +147,13 @@ const Search = ({ searchProps }: Props) => {
     <SearchContainer>
       <NavHeader
         headerprops={{
-          show: true,
-          search: true,
-          home: false,
           setIsSearch,
-          setIsOpen,
-          isModalOpen,
+          type: "search",
         }}
       />
+      <CloseBtn onClick={() => setIsSearch(false)} width={20} height={20}>
+        <span>닫기</span>
+      </CloseBtn>
       <BoxSuggest>
         <Input
           type="text"
@@ -552,14 +539,7 @@ const Search = ({ searchProps }: Props) => {
           </SuggestSearch>
         )}
       </BoxSuggest>
-      <SideBar
-        isOpen={isOpen}
-        wordList={wordList}
-        setWordList={setWordList}
-        width={260}
-        setIsOpen={setIsOpen}
-        isModalOpen={isModalOpen}
-      />
+      <SideBar />
     </SearchContainer>
   );
 };
@@ -786,5 +766,24 @@ const ItemRecommend = styled.div`
   }
   &:first-child a {
     margin-top: 0;
+  }
+`;
+
+const CloseBtn = styled(Button)`
+  background-position: -90px 0;
+  position: absolute;
+  right: 32px;
+  top: 31px;
+
+  span {
+    display: block;
+    font-size: 0;
+    height: 20px;
+    line-height: 0;
+    text-indent: -9999px;
+    width: 20px;
+    background: url(//t1.daumcdn.net/brunch/static/img/help/pc/ico_view_cover.v4_230130.png)
+      no-repeat;
+    background-position: -90px 0;
   }
 `;
