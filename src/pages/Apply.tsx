@@ -130,6 +130,19 @@ const ApplyContainer = styled.div`
   width: 100%;
   height: 100vh;
   background-color: #eaeaea;
+
+  .container_complete:before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: url(//t1.daumcdn.net/brunch/static/img/request/bg_complete.jpg)
+      no-repeat 50% 50%;
+    background-size: cover;
+    content: "";
+    opacity: 0.5;
+  }
 `;
 
 const InfoFlow = styled.div`
@@ -525,19 +538,6 @@ const ContainerJoin = styled.div`
   .txt_warning_wrapper {
     margin-top: 4px;
     margin-left: 26px;
-  }
-
-  .container_complete::before {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: url(https://t1.daumcdn.net/brunch/static/img/request/bg_complete.jpg)
-      no-repeat 50% 50%;
-    background-size: cover;
-    content: "";
-    opacity: 0.5;
   }
 
   .tit_join {
