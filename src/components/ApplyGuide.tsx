@@ -4,12 +4,16 @@ import styled from "styled-components";
 import Apply from "../pages/Apply";
 import NavHeader from "./NavHeader";
 import SideBar from "./Sidebar";
+import { useTypedDispatch, useTypedSelector } from "../hooks/redux";
+import { checkY } from "../store/slices/navheaderSlice";
 
 const ApplyGuide = () => {
   const [isHover, setHover] = useState(false); // 작가 신청하기 버튼의 hover 여부
   const [marginTop, setMarginTop] = useState(34); // 작가 신청하기 버튼의 margin-top
   const { search } = useLocation();
   const checkLocation = search.split("?").join("") === "form";
+  const dispatch = useTypedDispatch();
+  const show = useTypedSelector((state) => state.navheader.show);
 
   // 렌더링 시에 margin-top: 34-> 78 으로 변경하여 부드럽게 내려가는 효과
   useEffect(() => {
@@ -20,9 +24,25 @@ const ApplyGuide = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    const checkScroll = () => {
+      if (window.scrollY >= 26) {
+        dispatch(checkY(true));
+      } else {
+        dispatch(checkY(false));
+      }
+    };
+
+    window.addEventListener("scroll", checkScroll);
+
+    return () => window.removeEventListener("scroll", checkScroll);
+  }, [dispatch]);
+
   return (
     <>
-      <NavHeader headerprops={{ type: checkLocation ? "flow" : "apply" }} />
+      <NavHeader
+        headerprops={{ type: checkLocation ? "flow" : show ? "flow" : "apply" }}
+      />
       {checkLocation ? (
         <Apply />
       ) : (

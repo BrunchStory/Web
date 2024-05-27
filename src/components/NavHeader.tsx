@@ -210,14 +210,14 @@ const NavContainer = styled.div<NavContainerProps>`
       height: 60px;
       position: fixed;
       top: 0;
-      transition: background-color 0.1s ease-in;
+      /* transition: background-color 0.1s ease-in; */
       width: 100%;
       z-index: 10000;
     `}
 `;
 
 const WrapInner = styled.div`
-  margin: 30px 30px 0;
+  margin: 20px 30px 0;
 
   .f_l {
     float: left;
