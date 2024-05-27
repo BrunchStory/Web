@@ -485,21 +485,18 @@ const BoxType5 = ({ ...res }: any) => {
       </p>
       <div className="bundle_link">
         <Link
-          onClick={() => {
-            const del = window.confirm(
+          onClick={() =>
+            window.confirm(
               "작가 신청을 취소하시겠습니까?\n지금까지 작성한 내용은 모두 지워집니다."
-            );
-            if (del) {
-              window.location.reload();
-            }
-          }}
-          to={"#"}
+            )
+          }
+          to={"/apply"}
         >
           작가신청 취소할래요
         </Link>
         <Link
           onClick={() => setClickNext((prev: number) => (prev = 1))}
-          to={"#"}
+          to={"/apply?form"}
         >
           아! 아직 수정할게있어요
         </Link>
