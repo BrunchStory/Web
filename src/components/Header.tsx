@@ -5,43 +5,21 @@ import Modal from "./Modal";
 import NavHeader from "./NavHeader";
 import { Img } from "../styles/global";
 import { Link } from "react-router-dom";
+import { useTypedSelector } from "../hooks/redux";
 
 interface Props {
   homeProps: PropsType;
 }
 
 interface PropsType {
-  isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSearch: React.Dispatch<React.SetStateAction<boolean>>;
-  openModal: boolean;
-  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
-  isModalOpen: () => void;
-  wordList: {
-    id: number;
-    text: string;
-    selected: boolean;
-  }[];
-  setWordList: React.Dispatch<
-    React.SetStateAction<{ id: number; text: string; selected: boolean }[]>
-  >;
 }
 
 const Header = ({ homeProps }: Props) => {
-  const {
-    isOpen,
-    setIsOpen,
-    setIsSearch,
-    openModal,
-    setOpenModal,
-    isModalOpen,
-    wordList,
-    setWordList,
-  } = homeProps;
-
+  const { setIsSearch } = homeProps;
   const [closed, setClosed] = useState<boolean>(true);
-  const [show, setShow] = useState(false);
   const [changeNum, setChangeNum] = useState(0);
+  const openModal = useTypedSelector((state) => state.sidebar.openModal);
 
   useEffect(() => {
     const initTime = setInterval(() => {
@@ -81,15 +59,10 @@ const Header = ({ homeProps }: Props) => {
   }, [closed]);
 
   const headerProps = {
-    show,
-    setIsOpen,
     setClosed,
-    isModalOpen,
     setIsSearch,
-    search: false,
     closed,
-    setShow,
-    home: true,
+    type: "default",
   };
 
   return (
@@ -176,15 +149,8 @@ const Header = ({ homeProps }: Props) => {
           </li>
         </ul>
       </IntroBrunch>
-      <SideBar
-        isOpen={isOpen}
-        wordList={wordList}
-        setWordList={setWordList}
-        width={260}
-        setIsOpen={setIsOpen}
-        isModalOpen={isModalOpen}
-      />
-      {openModal && <Modal setOpenModal={setOpenModal} />}
+      <SideBar />
+      {openModal && <Modal />}
     </HeaderContainer>
   );
 };

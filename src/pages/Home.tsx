@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import WeekdayList from "../components/WeekdayList";
 import InfinitePagination from "../components/InfinitePagination";
 import Header from "../components/Header";
@@ -13,49 +13,24 @@ import styled from "styled-components";
 
 const Home = () => {
   const [isSearch, setIsSearch] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-  const [openModal, setOpenModal] = useState(false);
   const [scrollY, setScrollY] = useState<number>(0);
-  const [wordList, setWordList] = useState([
-    {
-      id: 0,
-      text: "브런치스토리 홈",
-      selected: true,
-    },
-    {
-      id: 1,
-      text: "브런치스토리 나우",
-      selected: false,
-    },
-    {
-      id: 2,
-      text: "브런치스토리 책방",
-      selected: false,
-    },
-  ]);
 
-  const isModalOpen = () => {
-    setOpenModal(true);
-  };
+  // useEffect(() => {
+  //   const checkScroll = () => {
+  //     setScrollY(window.scrollY);
+  //   };
+
+  //   window.addEventListener("scroll", checkScroll);
+
+  //   return () => window.removeEventListener("scroll", checkScroll);
+  // }, []);
 
   const homeProps = {
-    isOpen,
-    wordList,
-    openModal,
     setIsSearch,
-    setIsOpen,
-    isModalOpen,
-    setWordList,
-    setOpenModal,
   };
 
   const searchProps = {
-    isOpen,
-    wordList,
     setIsSearch,
-    setIsOpen,
-    isModalOpen,
-    setWordList,
   };
 
   return (
@@ -106,7 +81,7 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default React.memo(Home);
 
 const FixBtn = styled(Button)<{ $scrolly: number }>`
   position: ${(props) => (props.$scrolly >= 4498 ? "absolute" : "fixed")};

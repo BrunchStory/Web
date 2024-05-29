@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { Button, Img, WhiteSpace } from "../styles/global";
 import { Link } from "react-router-dom";
+import { useTypedDispatch } from "../hooks/redux";
+import { modal } from "../store/slices/sidebarSlice";
 
 interface FakeDataItem {
   imgUrl: string;
@@ -44,13 +46,10 @@ const fakeData: FakeData = {
   ],
 };
 
-interface Props {
-  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-const Modal = ({ setOpenModal }: Props) => {
+const Modal = () => {
   const [next, setNext] = useState(0);
   const outside = useRef<any>();
+  const dispatch = useTypedDispatch();
 
   const onNext = (str: "auto" | "prev" | "next") => {
     const strCase: BtnType = {
@@ -101,14 +100,14 @@ const Modal = ({ setOpenModal }: Props) => {
   useEffect(() => {
     const onClickOutside = (e: any) => {
       if (!outside.current.contains(e.target)) {
-        setOpenModal(false);
+        dispatch(modal(false));
       }
     };
 
     window.addEventListener("mousedown", onClickOutside);
 
     return () => window.removeEventListener("mousedown", onClickOutside);
-  }, [setOpenModal]);
+  }, [dispatch]);
 
   /** 카카오 로그인 */
   const handleKaKaoLogin = () => {
@@ -268,7 +267,7 @@ const Modal = ({ setOpenModal }: Props) => {
               height: "23px",
               width: "23px",
             }}
-            onClick={() => setOpenModal(false)}
+            onClick={() => dispatch(modal(false))}
           >
             <span>x</span>
           </button>

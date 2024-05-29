@@ -1,36 +1,35 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled, { css } from "styled-components";
 import { Button, Img } from "../styles/global";
 import { useCheckSize } from "../hooks/useCheckSize";
 import { Link } from "react-router-dom";
-
-interface Props {
-  isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  width: string | number;
-  wordList: {
-    id: number;
-    text: string;
-    selected: boolean;
-  }[];
-  setWordList: React.Dispatch<
-    React.SetStateAction<{ id: number; text: string; selected: boolean }[]>
-  >;
-  isModalOpen: () => void;
-}
+import { useTypedDispatch, useTypedSelector } from "../hooks/redux";
+import { modal, toggle } from "../store/slices/sidebarSlice";
 
 // width값이 string일 경우 % number일 경우 px로 정하기
 
-const SideBar = ({
-  isOpen,
-  setIsOpen,
-  width,
-  wordList,
-  setWordList,
-  isModalOpen,
-}: Props) => {
+const SideBar = () => {
   const outside = useRef<any>();
   const { isLaptop } = useCheckSize();
+  const [wordList, setWordList] = useState([
+    {
+      id: 0,
+      text: "브런치스토리 홈",
+      selected: true,
+    },
+    {
+      id: 1,
+      text: "브런치스토리 나우",
+      selected: false,
+    },
+    {
+      id: 2,
+      text: "브런치스토리 책방",
+      selected: false,
+    },
+  ]);
+  const dispatch = useTypedDispatch();
+  const { isOpen } = useTypedSelector((state) => state.sidebar);
 
   const onClick = (idx: number) => {
     const newWordList = wordList.map((v) =>
@@ -43,17 +42,17 @@ const SideBar = ({
   useEffect(() => {
     const onClickOutside = (e: any) => {
       if (!outside.current.contains(e.target)) {
-        setIsOpen(false);
+        dispatch(toggle(false));
       }
     };
 
     window.addEventListener("mousedown", onClickOutside);
 
     return () => window.removeEventListener("mousedown", onClickOutside);
-  }, [setIsOpen]);
+  }, [dispatch]);
 
   return (
-    <SdieBarContainer $width={width} $isOpen={isOpen.toString()} ref={outside}>
+    <SdieBarContainer $isOpen={isOpen} ref={outside}>
       <Profile>
         <LogoService />
         <p>
@@ -71,7 +70,7 @@ const SideBar = ({
             margin: "22px auto 0",
           }}
           radius={16}
-          onClick={isModalOpen}
+          onClick={() => dispatch(modal(true))}
         >
           브런치스토리 시작하기
         </Button>
@@ -113,21 +112,18 @@ const SideBar = ({
 export default SideBar;
 
 const SdieBarContainer = styled.div<{
-  $width: number | string;
-  $isOpen: string;
+  $isOpen: boolean;
 }>`
   z-index: 10000;
   background-color: #fff;
   border-right: 1px solid #ddd;
   height: 100%;
-  width: ${({ $width }) =>
-    typeof $width === "string" ? $width + "%" : `${$width}px`};
+  width: 260px;
   max-width: 300px;
-  left: ${(props) => (props.$isOpen === "true" ? 0 : "-55%")};
+  left: ${(props) => (props.$isOpen ? 0 : "-55%")};
   top: 0;
   position: fixed;
-  transition: ${(props) =>
-    props.$isOpen === "true" ? "0.8s ease" : "0.8s ease-in"};
+  transition: ${(props) => (props.$isOpen ? "0.8s ease" : "0.8s ease-in")};
 `;
 
 const Profile = styled.div`
@@ -225,7 +221,3 @@ const MenuSideBanner = styled.div`
   height: 118px;
   padding-bottom: 40px;
 `;
-
-SideBar.defaultProps = {
-  width: 280,
-};
