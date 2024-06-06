@@ -5,6 +5,7 @@ import "./styles/global.css";
 import Apply from "./pages/Apply";
 import Oauth from "./components/Oauth";
 import ApplyGuide from "./components/ApplyGuide";
+import Error from "./pages/Error";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         </Route>
         <Route path="/oauth" element={<Oauth />} />
         <Route path="/apply" element={<ApplyGuide />} />
+        <Route path="*" element={<Error />} />
       </Routes>
     </BrowserRouter>
   );
