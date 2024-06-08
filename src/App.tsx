@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import "./styles/global.css";
 import Oauth from "./components/Oauth";
 import ApplyGuide from "./components/ApplyGuide";
+import Error from "./pages/Error";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         </Route>
         <Route path="/oauth" element={<Oauth />} />
         <Route path="/apply" element={<ApplyGuide />} />
+        <Route path="*" element={<Error />} />
       </Routes>
     </BrowserRouter>
   );
